@@ -18,7 +18,9 @@ public class PlayerGun : NetworkBehaviour
     private GameObject bulletInst;
 
     private Camera playerCamera;
+    [SyncVar]
     private Vector2 worldPosition;
+    [SyncVar]
     private Vector2 direction;
 
     // Start is called before the first frame update
