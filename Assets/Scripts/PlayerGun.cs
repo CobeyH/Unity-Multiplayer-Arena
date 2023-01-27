@@ -43,11 +43,13 @@ public class PlayerGun : NetworkBehaviour
         gun.transform.right = direction;
     }
 
+    [Command]
     private void HandleShooting()
     {
         if (Input.GetMouseButtonDown(0))
         {
             bulletInst = Instantiate(bullet, bulletSpawnPoint.position, gun.transform.rotation);
+            NetworkServer.Spawn(bulletInst);
         }
     }
 
