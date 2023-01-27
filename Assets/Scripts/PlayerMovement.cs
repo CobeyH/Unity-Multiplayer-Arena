@@ -8,6 +8,9 @@ public class PlayerMovement : MonoBehaviour
     float moveForce;
 
     [SerializeField]
+    float maxSpeed = 3;
+
+    [SerializeField]
     AnimationCurve accelerationCurve;
 
     [SerializeField]
@@ -46,8 +49,9 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         // Horizontal Movement
-        float horzForce = moveDir * moveForce;
-        rigidBody.AddForce(new Vector2(horzForce, 0), ForceMode2D.Force);
+        float error = moveDir - rigidBody.velocity.x / maxSpeed;
+        float horzForce = accelerationCurve.Evaluate(error);
+        rigidBody.AddForce(new Vector2(horzForce * moveForce, 0), ForceMode2D.Force);
         // Vertical Movement
         if (shouldJump)
         {
