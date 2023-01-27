@@ -40,27 +40,13 @@ public class PlayerGun : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(
-            "Local play: "
-                + isLocalPlayer
-                + " Direction: "
-                + direction
-                + " Mouse Pos: "
-                + playerMousePos
-        );
         if (!isLocalPlayer)
             return;
         playerMousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 oldDir = direction;
         direction = (playerMousePos - (Vector2)gun.transform.position).normalized;
-        // HandleGunRotation();
+        setDirection(oldDir, direction);
         HandleShooting();
-    }
-
-    [Command]
-    void HandleGunRotation()
-    {
-        // Rotate gun to face mouse position
-        direction = (playerMousePos - (Vector2)gun.transform.position).normalized;
     }
 
     private void HandleShooting()
