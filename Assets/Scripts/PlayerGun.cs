@@ -55,6 +55,8 @@ public class PlayerGun : NetworkBehaviour
         RpcFireWeapon();
     }
 
+
+    [ClientRpc]
     void RpcFireWeapon()
     {
         bulletInst = Instantiate(bullet, bulletSpawnPoint.position, gun.transform.rotation);
