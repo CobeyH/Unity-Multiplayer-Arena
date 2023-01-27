@@ -2,8 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class PlayerGun : MonoBehaviour
+public class PlayerGun : NetworkBehaviour
 {
     [SerializeField]
     private GameObject gun;
