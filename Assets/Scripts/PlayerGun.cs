@@ -22,6 +22,21 @@ public class PlayerGun : NetworkBehaviour
 
     private Vector2 direction;
 
+    public override void OnStartAuthority()
+    {
+        base.OnStartAuthority();
+        StartCoroutine(asd());
+    }
+
+    private IEnumerator asd()
+    {
+        while (true)
+        {
+            HandleGunRotation();
+            yield return new WaitForSeconds(1f);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +48,7 @@ public class PlayerGun : NetworkBehaviour
     {
         if (!isLocalPlayer)
             return;
-        HandleGunRotation();
+        // HandleGunRotation();
         HandleShooting();
     }
 
