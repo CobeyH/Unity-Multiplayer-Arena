@@ -192,3 +192,4 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   maxJumps: 1
+  jumpForce: 10

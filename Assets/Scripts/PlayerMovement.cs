@@ -13,9 +13,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     int maxJumps;
 
+    [SerializeField]
+    float jumpForce;
+
     private Rigidbody2D rigidBody;
     private float moveDir;
     int jumpsRemaining;
+    bool shouldJump = false;
 
     // Start is called before the first frame update
     void Start()
@@ -27,12 +31,38 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Handle horizontal input
         moveDir = Input.GetAxis("Horizontal");
+        // Handle jump input
+        if (Input.GetKeyDown("space"))
+        {
+            if (jumpsRemaining > 0)
+            {
+                shouldJump = true;
+            }
+        }
     }
 
     void FixedUpdate()
     {
-        rigidBody.AddForce(new Vector2(moveDir * moveForce, 0), ForceMode2D.Force);
+        // Horizontal Movement
+        float horzForce = moveDir * moveForce;
+        rigidBody.AddForce(new Vector2(horzForce, 0), ForceMode2D.Force);
+        // Vertical Movement
+        if (shouldJump)
+        {
+            rigidBody.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            jumpsRemaining -= 1;
+            shouldJump = false;
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            ResetJumps();
+        }
     }
 
     void ResetJumps()
