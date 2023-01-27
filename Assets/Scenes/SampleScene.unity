@@ -1578,7 +1578,8 @@ MonoBehaviour:
   playerPrefab: {fileID: 6996597304130034024, guid: 583fa73ef20541bd5bf97cdc4acc113e, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
-  spawnPrefabs: []
+  spawnPrefabs:
+  - {fileID: 6951862342918334977, guid: 35e380a1bc8e1dfcba9b8a4d2d992cf2, type: 3}
   timeInterpolationGui: 0
 --- !u!4 &2082069937
 Transform:
