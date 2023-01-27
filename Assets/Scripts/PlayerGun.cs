@@ -33,6 +33,7 @@ public class PlayerGun : MonoBehaviour
         HandleShooting();
     }
 
+    [Command]
     private void HandleGunRotation()
     {
         // Rotate gun to face mouse position
@@ -41,6 +42,7 @@ public class PlayerGun : MonoBehaviour
         gun.transform.right = direction;
     }
 
+    [Command]
     private void HandleShooting()
     {
         if (Input.GetMouseButtonDown(0))
@@ -48,5 +50,5 @@ public class PlayerGun : MonoBehaviour
             bulletInst = Instantiate(bullet, bulletSpawnPoint.position, gun.transform.rotation);
         }
     }
-    
+
 }
