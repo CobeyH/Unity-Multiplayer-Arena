@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : NetworkBehaviour
 {
     [SerializeField]
     int maxHealth = 100;
 
+    [SyncVar]
     private int currentHealth;
 
     private void Start()
