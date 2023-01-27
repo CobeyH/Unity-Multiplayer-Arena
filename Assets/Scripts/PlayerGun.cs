@@ -23,11 +23,11 @@ public class PlayerGun : NetworkBehaviour
     [SyncVar]
     private Vector2 direction;
 
+    [SyncVar]
+    private Vector2 playerMousePos;
+
     // Start is called before the first frame update
-    void Start()
-    {
-        playerCamera = Camera.main;
-    }
+    void Start() { }
 
     // Update is called once per frame
     void Update()
@@ -42,12 +42,10 @@ public class PlayerGun : NetworkBehaviour
     [Command]
     void HandleGunRotation()
     {
+        // todo fix camera main
+        playerMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         // Rotate gun to face mouse position
-        direction = (
-            (Vector2)playerCamera.ScreenToWorldPoint(Input.mousePosition)
-            - (Vector2)gun.transform.position
-        ).normalized;
-        ClientGunRotation();
+        direction = (playerMousePos - (Vector2)gun.transform.position).normalized;
     }
 
     private void HandleShooting()
