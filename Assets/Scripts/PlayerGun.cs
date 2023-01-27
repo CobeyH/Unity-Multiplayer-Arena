@@ -49,12 +49,23 @@ public class PlayerGun : NetworkBehaviour
         HandleShooting();
     }
 
+    [Command]
+    void CmdFireWeapon()
+    {
+        RpcFireWeapon();
+    }
+
+    void RpcFireWeapon()
+    {
+        bulletInst = Instantiate(bullet, bulletSpawnPoint.position, gun.transform.rotation);
+        // NetworkServer.Spawn(bulletInst);
+    }
+
     private void HandleShooting()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            bulletInst = Instantiate(bullet, bulletSpawnPoint.position, gun.transform.rotation);
-            NetworkServer.Spawn(bulletInst);
+            CmdFireWeapon();
         }
     }
 }
