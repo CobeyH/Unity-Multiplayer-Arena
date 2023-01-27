@@ -30,11 +30,11 @@ public class PlayerGun : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!isLocalPlayer) return;
         HandleGunRotation();
         HandleShooting();
     }
 
-    [Command]
     private void HandleGunRotation()
     {
         // Rotate gun to face mouse position
@@ -43,7 +43,6 @@ public class PlayerGun : NetworkBehaviour
         gun.transform.right = direction;
     }
 
-    [Command]
     private void HandleShooting()
     {
         if (Input.GetMouseButtonDown(0))
