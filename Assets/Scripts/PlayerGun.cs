@@ -20,7 +20,7 @@ public class PlayerGun : NetworkBehaviour
     private Camera playerCamera;
     private Vector2 worldPosition;
 
-    [SyncVar]
+    [SyncVar(hook = nameof(setDirection))]
     private Vector2 direction;
     private Vector2 playerMousePos;
 
@@ -32,17 +32,28 @@ public class PlayerGun : NetworkBehaviour
         mainCam = Camera.main;
     }
 
+    void setDirection(Vector2 oldDir, Vector2 newDir)
+    {
+        gun.transform.right = direction;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Local play: " + isLocalPlayer + " Direction: " + direction);
-        gun.transform.right = direction;
+        Debug.Log(
+            "Local play: "
+                + isLocalPlayer
+                + " Direction: "
+                + direction
+                + " Mouse Pos: "
+                + playerMousePos
+        );
         if (!isLocalPlayer)
             return;
         playerMousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
-        HandleGunRotation();
+        direction = (playerMousePos - (Vector2)gun.transform.position).normalized;
+        // HandleGunRotation();
         HandleShooting();
-
     }
 
     [Command]
