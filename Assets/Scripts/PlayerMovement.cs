@@ -55,13 +55,14 @@ public class PlayerMovement : MonoBehaviour
         // Vertical Movement
         if (shouldJump)
         {
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, Mathf.Max(rigidBody.velocity.y, 0));
             rigidBody.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             jumpsRemaining -= 1;
             shouldJump = false;
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
