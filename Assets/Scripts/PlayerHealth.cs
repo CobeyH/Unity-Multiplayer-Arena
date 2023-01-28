@@ -11,6 +11,8 @@ public class PlayerHealth : NetworkBehaviour
     [SyncVar]
     private int currentHealth;
 
+    private int _damagePerShot = 10;
+
     private void Start()
     {
         currentHealth = maxHealth;
@@ -20,8 +22,8 @@ public class PlayerHealth : NetworkBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet") && isLocalPlayer)
         {
-            CmdInflictDamage(10);
-            if (currentHealth <= 0)
+            CmdInflictDamage(_damagePerShot);
+            if (currentHealth <= _damagePerShot)
             {
                 StartCoroutine(RespawnPlayer());
             }
