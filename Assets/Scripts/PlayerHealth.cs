@@ -21,6 +21,10 @@ public class PlayerHealth : NetworkBehaviour
         if (collision.gameObject.CompareTag("Bullet") && isLocalPlayer)
         {
             CmdInflictDamage(10);
+            if (currentHealth <= 0)
+            {
+                StartCoroutine(RespawnPlayer());
+            }
         }
     }
 
@@ -28,10 +32,6 @@ public class PlayerHealth : NetworkBehaviour
     public void CmdInflictDamage(int damageAmount)
     {
         currentHealth -= damageAmount;
-        if (currentHealth <= 0)
-        {
-            StartCoroutine(RespawnPlayer());
-        }
     }
 
     public float GetHealthPercentage()
