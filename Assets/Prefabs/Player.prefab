@@ -25,13 +25,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1821299666720090916}
   m_LocalRotation: {x: -0, y: -0, z: -0.70710695, w: 0.7071067}
-  m_LocalPosition: {x: 0.75, y: 0, z: 0}
-  m_LocalScale: {x: 0.4142446, y: 0.39052987, z: 0.5089}
+  m_LocalPosition: {x: 0.74999976, y: 0, z: 0}
+  m_LocalScale: {x: 0.41424465, y: 0.39052993, z: 0.5089}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8688723239046013197}
+  m_Children: []
   m_Father: {fileID: 4058897193901152649}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!212 &836104438703390866
 SpriteRenderer:
@@ -337,7 +336,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 1
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -388,26 +387,26 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0.011385345
-      outSlope: 0.011385345
+      inSlope: 3.3508248
+      outSlope: 3.3508248
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.21921515
-      outWeight: 0.18245845
+      outWeight: 0.2083407
     - serializedVersion: 3
       time: 2
       value: 2
-      inSlope: 0.9972501
-      outSlope: 0.9972501
+      inSlope: 0.09043255
+      outSlope: 0.09043255
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.06775606
+      inWeight: 1
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   maxJumps: 1
-  jumpForce: 5
+  jumpForce: 10
 --- !u!114 &1329599014755178301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452,7 +451,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8688723239046013197}
   m_Layer: 0
-  m_Name: SpawnPoint
+  m_Name: FireHole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -465,12 +464,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7794818139001915241}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.70710695, w: 0.7071067}
+  m_LocalPosition: {x: 0.984318, y: 0, z: 0}
+  m_LocalScale: {x: 0.41424468, y: 0.39052996, z: 0.5089}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 740260117584476045}
+  m_Father: {fileID: 4058897193901152649}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8909761771586444554
@@ -501,6 +500,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8688723239046013197}
   - {fileID: 740260117584476045}
   m_Father: {fileID: 4491865456893457868}
   m_RootOrder: 1

@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
@@ -15,14 +12,8 @@ public class PlayerGun : NetworkBehaviour
     [SerializeField]
     private Transform bulletSpawnPoint;
 
-    private GameObject bulletInst;
-
-    private Camera playerCamera;
-    private Vector2 worldPosition;
-
-    [SyncVar(hook = nameof(setDirection))]
+    [SyncVar(hook = nameof(SetDirection))]
     private Vector2 direction;
-    private Vector2 playerMousePos;
 
     private Camera mainCam;
 
@@ -32,7 +23,7 @@ public class PlayerGun : NetworkBehaviour
         mainCam = Camera.main;
     }
 
-    void setDirection(Vector2 oldDir, Vector2 newDir)
+    void SetDirection(Vector2 oldDir, Vector2 newDir)
     {
         gun.transform.right = direction;
     }
@@ -42,11 +33,26 @@ public class PlayerGun : NetworkBehaviour
     {
         if (!isLocalPlayer)
             return;
-        playerMousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 oldDir = direction;
-        direction = (playerMousePos - (Vector2)gun.transform.position).normalized;
-        setDirection(oldDir, direction);
+
+        HandleAimLook();
         HandleShooting();
+    }
+
+    void HandleAimLook()
+    {
+        direction = (
+            (Vector2)mainCam.ScreenToWorldPoint(Input.mousePosition)
+            - (Vector2)gun.transform.position
+        ).normalized;
+        SetDirection(direction, direction);
+    }
+
+    void HandleShooting()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            CmdFireWeapon();
+        }
     }
 
     [Command]
@@ -55,19 +61,9 @@ public class PlayerGun : NetworkBehaviour
         RpcFireWeapon();
     }
 
-
     [ClientRpc]
     void RpcFireWeapon()
     {
-        bulletInst = Instantiate(bullet, bulletSpawnPoint.position, gun.transform.rotation);
-        // NetworkServer.Spawn(bulletInst);
-    }
-
-    private void HandleShooting()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            CmdFireWeapon();
-        }
+        Instantiate(bullet, bulletSpawnPoint.position, gun.transform.rotation);
     }
 }
