@@ -8,8 +8,10 @@ public class PlayerHealth : NetworkBehaviour
     [SerializeField]
     int maxHealth = 100;
 
-    [SyncVar]
+    [SyncVar(hook = nameof(CheckForDeath))]
     private int currentHealth;
+
+    private int _damagePerShot = 10;
 
     private void Start()
     {
@@ -20,7 +22,7 @@ public class PlayerHealth : NetworkBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet") && isLocalPlayer)
         {
-            CmdInflictDamage(10);
+            CmdInflictDamage(_damagePerShot);
         }
     }
 
@@ -28,15 +30,48 @@ public class PlayerHealth : NetworkBehaviour
     public void CmdInflictDamage(int damageAmount)
     {
         currentHealth -= damageAmount;
-        if (currentHealth <= 0)
-        {
-            Destroy(gameObject);
-        }
     }
 
     public float GetHealthPercentage()
     {
         return currentHealth / (float)maxHealth;
     }
+
+    private void CheckForDeath(int _oldHeath, int _newHealth)
+    {
+        if (_newHealth <= 0)
+        {
+            StartCoroutine(RespawnPlayer());
+        }
+    }
+
+    // [ClientRpc]
+    private void SetPlayerEnabled(bool shouldEnable)
+    {
+        gameObject.GetComponent<Renderer>().enabled = shouldEnable;
+    }
+
+    private IEnumerator RespawnPlayer()
+    {
+        SetPlayerEnabled(false);
+        yield return new WaitForSeconds(2);
+        SetPlayerEnabled(true);
+        CmdResetPlayerHealth();
+    }
+
+    [Command]
+    private void CmdResetPlayerHealth()
+    {
+        currentHealth = maxHealth;
+    }
+
+    // [Command]
+    // private void Testing(bool isPlayerAlive)
+    // {
+    //     SetPlayerEnabled(isPlayerAlive);
+    //     if (isPlayerAlive)
+    //         currentHealth = maxHealth;
+
+    // }
 
 }
