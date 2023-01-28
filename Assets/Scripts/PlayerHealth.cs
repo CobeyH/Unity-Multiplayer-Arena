@@ -30,13 +30,35 @@ public class PlayerHealth : NetworkBehaviour
         currentHealth -= damageAmount;
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+            StartCoroutine(RespawnPlayer());
         }
     }
 
     public float GetHealthPercentage()
     {
         return currentHealth / (float)maxHealth;
+    }
+
+    [ClientRpc]
+    private void SetPlayerEnabled(bool shouldEnable)
+    {
+        gameObject.GetComponent<Renderer>().enabled = shouldEnable;
+    }
+
+    private IEnumerator RespawnPlayer()
+    {
+        Testing(false);
+        yield return new WaitForSeconds(2);
+        Testing(true);
+    }
+
+    [Command]
+    private void Testing(bool isPlayerAlive)
+    {
+        SetPlayerEnabled(isPlayerAlive);
+        if (isPlayerAlive)
+            currentHealth = maxHealth;
+
     }
 
 }
