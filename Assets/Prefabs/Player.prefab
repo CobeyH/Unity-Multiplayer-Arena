@@ -199,6 +199,7 @@ GameObject:
   - component: {fileID: 4904540909333560552}
   - component: {fileID: 1329599014755178301}
   - component: {fileID: 6384999701210476256}
+  - component: {fileID: 1696616147879605587}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -442,6 +443,22 @@ MonoBehaviour:
   gun: {fileID: 8909761771586444554}
   bullet: {fileID: 6951862342918334977, guid: 35e380a1bc8e1dfcba9b8a4d2d992cf2, type: 3}
   bulletSpawnPoint: {fileID: 8688723239046013197}
+--- !u!114 &1696616147879605587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6996597304130034024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f900a596618ba93cea1687c3cf2c2264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  playerColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &7794818139001915241
 GameObject:
   m_ObjectHideFlags: 0
