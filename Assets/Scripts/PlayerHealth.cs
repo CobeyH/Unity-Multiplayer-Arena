@@ -39,9 +39,9 @@ public class PlayerHealth : NetworkBehaviour
 
     private void CheckForDeath(int _oldHeath, int _newHealth)
     {
-        if (_newHealth < 0)
+        if (_newHealth <= 0)
         {
-            RespawnPlayer();
+            StartCoroutine(RespawnPlayer());
         }
     }
 
@@ -56,6 +56,13 @@ public class PlayerHealth : NetworkBehaviour
         SetPlayerEnabled(false);
         yield return new WaitForSeconds(2);
         SetPlayerEnabled(true);
+        CmdResetPlayerHealth();
+    }
+
+    [Command]
+    private void CmdResetPlayerHealth()
+    {
+        currentHealth = maxHealth;
     }
 
     // [Command]
