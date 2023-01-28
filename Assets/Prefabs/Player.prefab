@@ -215,8 +215,8 @@ Transform:
   m_GameObject: {fileID: 6996597304130034024}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.36, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8639930480899299944}
   - {fileID: 4058897193901152649}
@@ -334,10 +334,10 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 1
+  m_LinearDrag: 0.5
   m_AngularDrag: 0.05
-  m_GravityScale: 3
-  m_Material: {fileID: 0}
+  m_GravityScale: 0
+  m_Material: {fileID: 6200000, guid: c2d1c015bf064293fa7a1c32f3f9f06c, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -371,7 +371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveForce: 50
-  maxSpeed: 3
+  maxSpeed: 5
   accelerationCurve:
     serializedVersion: 2
     m_Curve:
@@ -405,8 +405,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  maxJumps: 1
-  jumpForce: 10
+  maxBlinks: 1
+  blinkForce: 10
+  blinkCooldown: 1
 --- !u!114 &1329599014755178301
 MonoBehaviour:
   m_ObjectHideFlags: 0
