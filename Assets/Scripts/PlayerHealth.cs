@@ -23,7 +23,7 @@ public class PlayerHealth : NetworkBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet") && isLocalPlayer)
         {
-            CmdInflictDamage(stats.weaponStats.damage);
+            CmdInflictDamage(stats.bulletStats.damage);
         }
     }
 

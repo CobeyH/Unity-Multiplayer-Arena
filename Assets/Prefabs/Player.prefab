@@ -425,7 +425,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  maxHealth: 20
 --- !u!114 &6384999701210476256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -479,17 +478,19 @@ MonoBehaviour:
     maxHealth: 100
     size: 1
   weaponStats:
-    damage: 10
-    speed: 1
-    count: 1
+    bulletCount: 1
     spread: 0
-    bulletSize: 1
     reloadSpeed: 1
   movementStats:
     acceleration: 50
     maxSpeed: 5
     blinkRechargeRate: 1
     blinkCharges: 1
+  bulletStats:
+    damage: 10
+    speed: 5
+    size: 1
+    falloff: 15
 --- !u!1 &7794818139001915241
 GameObject:
   m_ObjectHideFlags: 0

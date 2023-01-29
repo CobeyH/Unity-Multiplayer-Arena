@@ -16,11 +16,13 @@ public class PlayerGun : NetworkBehaviour
     private Vector2 direction;
 
     private Camera mainCam;
+    private PlayerStats stats;
 
     // Start is called before the first frame update
     void Start()
     {
         mainCam = Camera.main;
+        stats = GetComponent<PlayerStats>();
     }
 
     void SetDirection(Vector2 oldDir, Vector2 newDir)
@@ -64,6 +66,7 @@ public class PlayerGun : NetworkBehaviour
     [ClientRpc]
     void RpcFireWeapon()
     {
-        Instantiate(bullet, bulletSpawnPoint.position, gun.transform.rotation);
+        GameObject bulletInstance = Instantiate(bullet, bulletSpawnPoint.position, gun.transform.rotation);
+        bulletInstance.GetComponent<BulletBehaviour>().bulletStats = stats.bulletStats;
     }
 }

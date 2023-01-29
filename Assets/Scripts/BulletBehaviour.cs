@@ -2,22 +2,20 @@ using UnityEngine;
 
 public class BulletBehaviour : MonoBehaviour
 {
-    [SerializeField]
-    private float normalBulletSpeed = 5f;
-    private float destroyTime = 15f;
     private Rigidbody2D rb;
+    public BulletStats bulletStats;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         SetStraightVelocity();
-        Destroy(gameObject, destroyTime);
+        Destroy(gameObject, bulletStats.falloff);
     }
 
     void SetStraightVelocity()
     {
-        rb.velocity = transform.right * normalBulletSpeed;
+        rb.velocity = transform.right * bulletStats.speed;
     }
 
     void OnCollisionStay2D(Collision2D collision)
