@@ -15,8 +15,8 @@ public struct WeaponStats
 public struct BulletStats
 {
     public int damage;
-    public int speed;
-    public int size;
+    public float speed;
+    public float size;
     public float falloff;
 }
 
@@ -34,7 +34,7 @@ public struct MovementStats
     public int maxSpeed;
     public float blinkRechargeRate;
     public int blinkCharges;
-    public int blinkForce;
+    public float blinkForce;
 }
 
 public class PlayerStats : NetworkBehaviour
@@ -48,4 +48,9 @@ public class PlayerStats : NetworkBehaviour
     public MovementStats movementStats;
     [SyncVar]
     public BulletStats bulletStats;
+
+    void Update()
+    {
+        bulletStats.speed += 0.01f;
+    }
 }
