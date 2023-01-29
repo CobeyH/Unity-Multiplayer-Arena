@@ -51,6 +51,16 @@ public class PlayerStats : NetworkBehaviour
 
     void Update()
     {
+        if (isLocalPlayer)
+        {
+            Debug.Log(bulletStats.speed);
+            CmdUpdateSpeed();
+        }
+    }
+
+    [Command]
+    void CmdUpdateSpeed()
+    {
         bulletStats.speed += 0.01f;
     }
 }
