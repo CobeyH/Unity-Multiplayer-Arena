@@ -32,8 +32,9 @@ public struct MovementStats
 {
     public int acceleration;
     public int maxSpeed;
-    public int blinkRechargeRate;
+    public float blinkRechargeRate;
     public int blinkCharges;
+    public int blinkForce;
 }
 
 public class PlayerStats : NetworkBehaviour

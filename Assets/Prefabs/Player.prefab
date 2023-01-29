@@ -372,8 +372,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56c19e6326f802e8290b93d8fc2648ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveForce: 50
-  maxSpeed: 5
   accelerationCurve:
     serializedVersion: 2
     m_Curve:
@@ -407,9 +405,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  maxBlinks: 1
-  blinkForce: 10
-  blinkCooldown: 1
 --- !u!114 &1329599014755178301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,9 +478,10 @@ MonoBehaviour:
     reloadSpeed: 1
   movementStats:
     acceleration: 50
-    maxSpeed: 5
+    maxSpeed: 3
     blinkRechargeRate: 1
     blinkCharges: 1
+    blinkForce: 10
   bulletStats:
     damage: 10
     speed: 5
