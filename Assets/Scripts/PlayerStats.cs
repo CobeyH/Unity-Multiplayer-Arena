@@ -5,7 +5,7 @@ using Mirror;
 
 public class PlayerStats : NetworkBehaviour
 {
-
+    [System.Serializable]
     public struct WeaponStats
     {
         public int damage;
@@ -16,17 +16,20 @@ public class PlayerStats : NetworkBehaviour
         public int reloadSpeed;
     }
 
+    [System.Serializable]
     public struct BodyStats
     {
         public int maxHealth;
         public float size;
     }
 
+    [System.Serializable]
     public struct MovementStats
     {
         public int acceleration;
         public int maxSpeed;
         public int blinkRechargeRate;
+        public int blinkCharges;
     }
 
     [SyncVar]

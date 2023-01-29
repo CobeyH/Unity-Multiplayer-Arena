@@ -5,16 +5,17 @@ using Mirror;
 
 public class PlayerHealth : NetworkBehaviour
 {
-    [SerializeField]
-    int maxHealth = 100;
+    private PlayerStats stats;
 
     [SyncVar(hook = nameof(CheckForDeath))]
     private int currentHealth;
 
-    private int _damagePerShot = 10;
+    private int maxHealth;
 
     private void Start()
     {
+        stats = GetComponent<PlayerStats>();
+        maxHealth = stats.bodyStats.maxHealth;
         currentHealth = maxHealth;
     }
 
@@ -22,7 +23,7 @@ public class PlayerHealth : NetworkBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet") && isLocalPlayer)
         {
-            CmdInflictDamage(_damagePerShot);
+            CmdInflictDamage(stats.weaponStats.damage);
         }
     }
 

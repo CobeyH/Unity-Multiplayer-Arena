@@ -475,6 +475,21 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
+  bodyStats:
+    maxHealth: 100
+    size: 1
+  weaponStats:
+    damage: 10
+    speed: 1
+    count: 1
+    spread: 0
+    bulletSize: 1
+    reloadSpeed: 1
+  movementStats:
+    acceleration: 50
+    maxSpeed: 5
+    blinkRechargeRate: 1
+    blinkCharges: 1
 --- !u!1 &7794818139001915241
 GameObject:
   m_ObjectHideFlags: 0
