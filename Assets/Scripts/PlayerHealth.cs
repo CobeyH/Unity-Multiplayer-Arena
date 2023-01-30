@@ -20,10 +20,10 @@ public class PlayerHealth : NetworkBehaviour
         maxHealth = stats.bodyStats.maxHealth;
         currentHealth = maxHealth;
         respawns = GameObject.FindGameObjectsWithTag("Respawn");
-        Debug.Log(connectionToServer.connectionId);
-        Debug.Log(connectionToClient.connectionId);
+        SpawnPlayer();
     }
 
+    [Command]
     private void SpawnPlayer()
     {
         Debug.Log(connectionToServer.connectionId);
