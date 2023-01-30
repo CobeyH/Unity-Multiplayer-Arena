@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     AnimationCurve accelerationCurve;
 
-    private MovementStats stats;
+    private MovementStatsSO stats;
 
     private Rigidbody2D rigidBody;
     private Vector2 lookDirection, error;

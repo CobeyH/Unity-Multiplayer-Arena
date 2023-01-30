@@ -421,7 +421,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   spawnPoints:
-  - {fileID: 0}
+  - {x: 2.2783383e+36, y: 3.0803e-41}
 --- !u!114 &6384999701210476256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,7 +436,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 1
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0.05
   gun: {fileID: 8909761771586444554}
   bullet: {fileID: 6951862342918334977, guid: 35e380a1bc8e1dfcba9b8a4d2d992cf2, type: 3}
   bulletSpawnPoint: {fileID: 8688723239046013197}
@@ -471,24 +471,10 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  bodyStats:
-    maxHealth: 10
-    size: 1
-  weaponStats:
-    bulletCount: 1
-    spread: 0
-    reloadSpeed: 1
-  movementStats:
-    acceleration: 50
-    maxSpeed: 3
-    blinkRechargeRate: 1
-    blinkCharges: 1
-    blinkForce: 10
-  bulletStats:
-    damage: 10
-    speed: 5
-    size: 1
-    falloff: 15
+  bodyStats: {fileID: 11400000, guid: 707f3812e7b82bdd5b46ce12421360b1, type: 2}
+  weaponStats: {fileID: 11400000, guid: fc912a2f27ca4b806ad9ead3d1ac0940, type: 2}
+  movementStats: {fileID: 11400000, guid: 6a178796ea4e8aa6985988c45984bbc0, type: 2}
+  bulletStats: {fileID: 11400000, guid: b6b410d28019ba5ed86161d18345ad5b, type: 2}
 --- !u!1 &7794818139001915241
 GameObject:
   m_ObjectHideFlags: 0
