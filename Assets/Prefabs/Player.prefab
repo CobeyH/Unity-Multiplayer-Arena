@@ -475,6 +475,7 @@ MonoBehaviour:
   weaponStats: {fileID: 11400000, guid: fc912a2f27ca4b806ad9ead3d1ac0940, type: 2}
   movementStats: {fileID: 11400000, guid: 6a178796ea4e8aa6985988c45984bbc0, type: 2}
   bulletStats: {fileID: 11400000, guid: b6b410d28019ba5ed86161d18345ad5b, type: 2}
+  testing: {fileID: 11400000, guid: bd4081c9e50898a46b268526fbd4357c, type: 2}
 --- !u!1 &7794818139001915241
 GameObject:
   m_ObjectHideFlags: 0

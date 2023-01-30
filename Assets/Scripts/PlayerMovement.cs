@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine(ResetBlinks(0));
         mainCam = Camera.main;
         renderers = GetComponentsInChildren<Renderer>();
-        stats = GetComponent<PlayerStats>().movementStats;
+        stats = GetComponent<PlayerStats>().currentMovementStats;
     }
 
     // Update is called once per frame

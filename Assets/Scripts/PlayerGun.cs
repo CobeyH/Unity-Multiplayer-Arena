@@ -67,6 +67,6 @@ public class PlayerGun : NetworkBehaviour
     void RpcFireWeapon()
     {
         GameObject bulletInstance = Instantiate(bullet, bulletSpawnPoint.position, gun.transform.rotation);
-        bulletInstance.GetComponent<BulletBehaviour>().bulletStats = stats.bulletStats;
+        bulletInstance.GetComponent<BulletBehaviour>().bulletStats = stats.currentBulletStats;
     }
 }

@@ -17,7 +17,7 @@ public class PlayerHealth : NetworkBehaviour
     private void Start()
     {
         stats = GetComponent<PlayerStats>();
-        maxHealth = stats.bodyStats.maxHealth;
+        maxHealth = stats.currentBodyStats.maxHealth;
         currentHealth = maxHealth;
         respawns = GameObject.FindGameObjectsWithTag("Respawn");
         CmdSpawn();
@@ -40,7 +40,7 @@ public class PlayerHealth : NetworkBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet") && isLocalPlayer)
         {
-            CmdInflictDamage(stats.bulletStats.damage);
+            CmdInflictDamage(stats.currentBulletStats.damage);
         }
     }
 
