@@ -471,10 +471,14 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  bodyStats: {fileID: 11400000, guid: 707f3812e7b82bdd5b46ce12421360b1, type: 2}
-  weaponStats: {fileID: 11400000, guid: fc912a2f27ca4b806ad9ead3d1ac0940, type: 2}
-  movementStats: {fileID: 11400000, guid: 6a178796ea4e8aa6985988c45984bbc0, type: 2}
-  bulletStats: {fileID: 11400000, guid: b6b410d28019ba5ed86161d18345ad5b, type: 2}
+  currentBodyStats: {fileID: 0}
+  baseBodyStats: {fileID: 11400000, guid: 707f3812e7b82bdd5b46ce12421360b1, type: 2}
+  currentWeaponStats: {fileID: 0}
+  baseWeaponStats: {fileID: 11400000, guid: fc912a2f27ca4b806ad9ead3d1ac0940, type: 2}
+  currentMovementStats: {fileID: 0}
+  baseMovementStats: {fileID: 11400000, guid: 6a178796ea4e8aa6985988c45984bbc0, type: 2}
+  currentBulletStats: {fileID: 0}
+  baseBulletStats: {fileID: 11400000, guid: b6b410d28019ba5ed86161d18345ad5b, type: 2}
   testing: {fileID: 11400000, guid: bd4081c9e50898a46b268526fbd4357c, type: 2}
 --- !u!1 &7794818139001915241
 GameObject:

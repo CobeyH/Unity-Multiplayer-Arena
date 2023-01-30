@@ -6,21 +6,25 @@ using Mirror;
 public class PlayerStats : NetworkBehaviour
 {
     // Main Stats
+    [HideInInspector]
     [SyncVar]
     public BodyStatsSO currentBodyStats;
     [SerializeField]
     private BodyStatsSO baseBodyStats;
 
+    [HideInInspector]
     [SyncVar]
     public WeaponStatsSO currentWeaponStats;
     [SerializeField]
     private WeaponStatsSO baseWeaponStats;
 
+    [HideInInspector]
     [SyncVar]
     public MovementStatsSO currentMovementStats;
     [SerializeField]
     private MovementStatsSO baseMovementStats;
 
+    [HideInInspector]
     [SyncVar]
     public BulletStatsSO currentBulletStats;
     [SerializeField]
@@ -31,7 +35,7 @@ public class PlayerStats : NetworkBehaviour
     // Upgrades
     public readonly SyncList<UpgradeSO> upgrades = new SyncList<UpgradeSO>();
 
-    void Start()
+    void Awake()
     {
         currentBodyStats = Instantiate(baseBodyStats);
         currentWeaponStats = Instantiate(baseWeaponStats);
@@ -57,7 +61,19 @@ public class PlayerStats : NetworkBehaviour
         upgrades.Add(upgrade);
         if (upgrade.bodyChanges)
         {
-            // bodyStats += upgrade.bodyChanges;
+            currentBodyStats.Add(upgrade.bodyChanges);
+        }
+        if (upgrade.weaponChanges)
+        {
+            currentWeaponStats.Add(upgrade.weaponChanges);
+        }
+        if (upgrade.movementChanges)
+        {
+            currentMovementStats.Add(upgrade.movementChanges);
+        }
+        if (upgrade.bulletChanges)
+        {
+            currentBulletStats.Add(upgrade.bulletChanges);
         }
     }
 
