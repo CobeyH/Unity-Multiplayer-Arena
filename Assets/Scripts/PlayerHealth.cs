@@ -16,7 +16,6 @@ public class PlayerHealth : NetworkBehaviour
 
     private void Start()
     {
-        HidePlayer();
         stats = GetComponent<PlayerStats>();
         maxHealth = stats.bodyStats.maxHealth;
         currentHealth = maxHealth;

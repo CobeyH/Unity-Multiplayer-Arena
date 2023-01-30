@@ -40,6 +40,11 @@ public struct MovementStats
 public class PlayerStats : NetworkBehaviour
 {
 
+    [SyncVar] public int bullet_damage;
+    [SyncVar] public float bullet_speed;
+    [SyncVar] public float bullet_size;
+    [SyncVar] public float bullet_falloff;
+    
     [SyncVar]
     public BodyStats bodyStats;
     [SyncVar]
