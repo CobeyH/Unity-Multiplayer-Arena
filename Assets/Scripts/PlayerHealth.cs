@@ -20,13 +20,19 @@ public class PlayerHealth : NetworkBehaviour
         maxHealth = stats.bodyStats.maxHealth;
         currentHealth = maxHealth;
         respawns = GameObject.FindGameObjectsWithTag("Respawn");
-        SpawnPlayer();
+        CmdSpawn();
     }
 
     [Command]
-    private void SpawnPlayer()
+    private void CmdSpawn()
     {
-        gameObject.transform.position = respawns[netId - 1].transform.position;
+        RpcSpawn(netId);
+    }
+
+    [ClientRpc]
+    private void RpcSpawn(uint id)
+    {
+        gameObject.transform.position = respawns[id - 1].transform.position;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
