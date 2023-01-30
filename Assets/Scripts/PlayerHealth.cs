@@ -1,22 +1,33 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
 public class PlayerHealth : NetworkBehaviour
 {
     private PlayerStats stats;
+    public Vector2[] spawnPoints;
 
-    [SyncVar(hook = nameof(CheckForDeath))]
+    [SyncVar]
     private int currentHealth;
 
     private int maxHealth;
+
+    private GameObject[] respawns;
 
     private void Start()
     {
         stats = GetComponent<PlayerStats>();
         maxHealth = stats.bodyStats.maxHealth;
         currentHealth = maxHealth;
+        respawns = GameObject.FindGameObjectsWithTag("Respawn");
+        Debug.Log(connectionToServer.connectionId);
+        Debug.Log(connectionToClient.connectionId);
+    }
+
+    private void SpawnPlayer()
+    {
+        Debug.Log(connectionToServer.connectionId);
+        Debug.Log(connectionToClient.connectionId);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -31,48 +42,36 @@ public class PlayerHealth : NetworkBehaviour
     public void CmdInflictDamage(int damageAmount)
     {
         currentHealth -= damageAmount;
-    }
-
-    public float GetHealthPercentage()
-    {
-        return currentHealth / (float)maxHealth;
-    }
-
-    private void CheckForDeath(int _oldHeath, int _newHealth)
-    {
-        if (_newHealth <= 0)
+        if (currentHealth <= 0)
         {
-            StartCoroutine(RespawnPlayer());
+            RpcRespawn();
+            currentHealth = maxHealth;
         }
     }
 
-    // [ClientRpc]
-    private void SetPlayerEnabled(bool shouldEnable)
+    [ClientRpc]
+    private void RpcRespawn()
     {
-        gameObject.GetComponent<Renderer>().enabled = shouldEnable;
+        StartCoroutine(RespawnPlayer(2));
     }
 
-    private IEnumerator RespawnPlayer()
+    private IEnumerator RespawnPlayer(float t)
     {
-        SetPlayerEnabled(false);
-        yield return new WaitForSeconds(2);
-        SetPlayerEnabled(true);
-        CmdResetPlayerHealth();
+        SpriteRenderer[] All = GetComponentsInChildren<SpriteRenderer>();
+        foreach (var sr in All)
+        {
+            sr.enabled = false;
+        }
+        yield return new WaitForSeconds(t);
+        foreach (var sr in All)
+        {
+            sr.enabled = true;
+        }
     }
 
-    [Command]
-    private void CmdResetPlayerHealth()
+    // Used by HealthBar
+    public float GetHealthPercentage()
     {
-        currentHealth = maxHealth;
+        return Mathf.Max(0, currentHealth / (float)maxHealth);
     }
-
-    // [Command]
-    // private void Testing(bool isPlayerAlive)
-    // {
-    //     SetPlayerEnabled(isPlayerAlive);
-    //     if (isPlayerAlive)
-    //         currentHealth = maxHealth;
-
-    // }
-
 }

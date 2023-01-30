@@ -46,16 +46,16 @@ public class PlayerStats : NetworkBehaviour
     public WeaponStats weaponStats;
     [SyncVar]
     public MovementStats movementStats;
-    [SyncVar(hook = nameof(SetBulletSpeed))]
+    [SyncVar]
     public BulletStats bulletStats;
 
     void Update()
     {
-        if (isLocalPlayer)
-        {
-            bulletStats.speed += 0.01f;
-            SetBulletSpeed(bulletStats.speed, bulletStats.speed);
-        }
+        // if (isLocalPlayer)
+        // {
+        //     bulletStats.speed += 0.01f;
+        //     SetBulletSpeed(bulletStats.speed, bulletStats.speed);
+        // }
     }
 
     void SetBulletSpeed(float oldVal, float newVal)

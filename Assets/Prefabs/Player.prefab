@@ -420,6 +420,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
+  spawnPoints:
+  - {fileID: 0}
 --- !u!114 &6384999701210476256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,7 +472,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   bodyStats:
-    maxHealth: 100
+    maxHealth: 10
     size: 1
   weaponStats:
     bulletCount: 1
