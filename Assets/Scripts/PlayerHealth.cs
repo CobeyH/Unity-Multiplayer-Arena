@@ -16,6 +16,7 @@ public class PlayerHealth : NetworkBehaviour
 
     private void Start()
     {
+        HidePlayer();
         stats = GetComponent<PlayerStats>();
         maxHealth = stats.bodyStats.maxHealth;
         currentHealth = maxHealth;
@@ -32,6 +33,7 @@ public class PlayerHealth : NetworkBehaviour
     [ClientRpc]
     private void RpcSpawn(uint id)
     {
+        gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         gameObject.transform.position = respawns[id - 1].transform.position;
     }
 
@@ -62,16 +64,22 @@ public class PlayerHealth : NetworkBehaviour
 
     private IEnumerator RespawnPlayer(float t)
     {
-        SpriteRenderer[] All = GetComponentsInChildren<SpriteRenderer>();
-        foreach (var sr in All)
-        {
-            sr.enabled = false;
-        }
+        HidePlayer();
         yield return new WaitForSeconds(t);
-        foreach (var sr in All)
-        {
-            sr.enabled = true;
-        }
+        CmdSpawn();
+    }
+
+    private void HidePlayer()
+    {
+        // Hide all sprite renderers within a game object
+        // SpriteRenderer[] All = GetComponentsInChildren<SpriteRenderer>();
+        // foreach (var sr in All)
+        // {
+        //     sr.enabled = false;
+        // }
+
+        // Simpler method to achieve the same thing lol
+        gameObject.transform.position = new Vector2(99, 99);
     }
 
     // Used by HealthBar
