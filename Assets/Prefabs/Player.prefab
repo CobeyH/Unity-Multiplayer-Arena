@@ -468,7 +468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 994abd93637e5c57b87e3bfb4af73733, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 1
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   bodyStats: {fileID: 11400000, guid: 707f3812e7b82bdd5b46ce12421360b1, type: 2}

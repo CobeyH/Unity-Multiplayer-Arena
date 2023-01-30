@@ -5,6 +5,7 @@ using Mirror;
 
 public class PlayerStats : NetworkBehaviour
 {
+    // Main Stats
     [SyncVar]
     public BodyStatsSO bodyStats;
     [SyncVar]
@@ -14,15 +15,10 @@ public class PlayerStats : NetworkBehaviour
     [SyncVar]
     public BulletStatsSO bulletStats;
 
-    void Update()
-    {
-        if (isLocalPlayer)
-        {
-            bulletStats.speed += 0.003f;
-        }
-        if (!isLocalPlayer)
-        {
-            Debug.Log(bulletStats.speed);
-        }
-    }
+    // Upgrades
+    public readonly SyncList<BodyStatsSO> bodyUpgrades = new SyncList<BodyStatsSO>();
+    public readonly SyncList<WeaponStatsSO> weaponUpgrades = new SyncList<WeaponStatsSO>();
+    public readonly SyncList<MovementStatsSO> movementUpgrades = new SyncList<MovementStatsSO>();
+    public readonly SyncList<BulletStatsSO> bulletUpgrades = new SyncList<BulletStatsSO>();
+
 }
