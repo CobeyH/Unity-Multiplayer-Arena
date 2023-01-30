@@ -16,21 +16,13 @@ public class PlayerStats : NetworkBehaviour
 
     void Update()
     {
-        // if (isLocalPlayer)
-        // {
-        //     bulletStats.speed += 0.01f;
-        //     SetBulletSpeed(bulletStats.speed, bulletStats.speed);
-        // }
-    }
-
-    void SetBulletSpeed(float oldVal, float newVal)
-    {
-        bulletStats.speed = newVal;
-    }
-
-    [Command]
-    void CmdUpdateSpeed()
-    {
-        bulletStats.speed += 0.01f;
+        if (isLocalPlayer)
+        {
+            bulletStats.speed += 0.003f;
+        }
+        if (!isLocalPlayer)
+        {
+            Debug.Log(bulletStats.speed);
+        }
     }
 }
