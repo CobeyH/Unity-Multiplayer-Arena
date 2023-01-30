@@ -16,6 +16,7 @@ public class PlayerHealth : NetworkBehaviour
 
     private void Start()
     {
+        
         stats = GetComponent<PlayerStats>();
         maxHealth = stats.bodyStats.maxHealth;
         currentHealth = maxHealth;
@@ -26,8 +27,9 @@ public class PlayerHealth : NetworkBehaviour
     [Command]
     private void SpawnPlayer()
     {
-        Debug.Log(connectionToServer.connectionId);
-        Debug.Log(connectionToClient.connectionId);
+        Debug.Log("server" + connectionToServer);
+        Debug.Log("client" + connectionToClient);
+        Debug.Log(netId);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
