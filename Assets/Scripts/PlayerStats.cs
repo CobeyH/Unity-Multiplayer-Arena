@@ -16,9 +16,12 @@ public class PlayerStats : NetworkBehaviour
     public BulletStatsSO bulletStats;
 
     // Upgrades
-    public readonly SyncList<BodyStatsSO> bodyUpgrades = new SyncList<BodyStatsSO>();
-    public readonly SyncList<WeaponStatsSO> weaponUpgrades = new SyncList<WeaponStatsSO>();
-    public readonly SyncList<MovementStatsSO> movementUpgrades = new SyncList<MovementStatsSO>();
-    public readonly SyncList<BulletStatsSO> bulletUpgrades = new SyncList<BulletStatsSO>();
+    public readonly SyncList<UpgradeSO> upgrades = new SyncList<UpgradeSO>();
+
+    [Command]
+    private void CmdApplyUpgrade(UpgradeSO upgrade)
+    {
+        upgrades.Add(upgrade);
+    }
 
 }
