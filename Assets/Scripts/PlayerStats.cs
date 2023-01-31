@@ -47,7 +47,8 @@ public class PlayerStats : NetworkBehaviour
     {
         if (Input.GetKeyDown("x"))
         {
-            CmdApplyUpgrade(testing);
+            if (isLocalPlayer)
+                CmdApplyUpgrade(testing);
         }
         if (Input.GetKeyDown("s"))
         {

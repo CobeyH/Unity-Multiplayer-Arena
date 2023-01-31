@@ -15,13 +15,11 @@ public class PlayerGun : NetworkBehaviour
     [SyncVar(hook = nameof(SetDirection))]
     private Vector2 direction;
 
-    private Camera mainCam;
     private PlayerStats stats;
 
     // Start is called before the first frame update
     void Start()
     {
-        mainCam = Camera.main;
         stats = GetComponent<PlayerStats>();
     }
 
@@ -43,7 +41,7 @@ public class PlayerGun : NetworkBehaviour
     void HandleAimLook()
     {
         direction = (
-            (Vector2)mainCam.ScreenToWorldPoint(Input.mousePosition)
+            (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition)
             - (Vector2)gun.transform.position
         ).normalized;
         SetDirection(direction, direction);
