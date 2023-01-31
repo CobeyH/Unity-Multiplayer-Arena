@@ -45,6 +45,11 @@ public class PlayerStats : NetworkBehaviour
 
     void PrintStats(BulletStatsSO _oldStats, BulletStatsSO _newStats)
     {
+        if (!_oldStats)
+        {
+            Debug.Log("No Stats yet");
+            return;
+        }
         Debug.Log(_oldStats.speed + " " + _newStats.speed);
     }
 
