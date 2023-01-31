@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Mirror;
 
 public class UpgradeCard : MonoBehaviour
 {
@@ -10,7 +11,9 @@ public class UpgradeCard : MonoBehaviour
 
     // UI Elements
     [SerializeField]
-    TMP_Text title, description;
+    TMP_Text title,
+        description;
+
     [SerializeField]
     GameObject image;
 
@@ -20,7 +23,14 @@ public class UpgradeCard : MonoBehaviour
         title.text = upgrade.title;
         description.text = upgrade.description;
         image.GetComponent<Image>().sprite = upgrade.image;
+    }
 
+    public void ApplyUpgrade()
+    {
+        GameObject localPlayer = NetworkClient.localPlayer.gameObject;
+        PlayerStats stats = localPlayer.GetComponent<PlayerStats>();
+        stats.CmdApplyUpgrade(upgrade);
+        Debug.Log("Applied Upgrade " + upgrade.title);
     }
 
     // public UpgradeSO GetCard(){
