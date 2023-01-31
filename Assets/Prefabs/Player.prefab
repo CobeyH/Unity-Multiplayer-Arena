@@ -200,6 +200,7 @@ GameObject:
   - component: {fileID: 1329599014755178301}
   - component: {fileID: 6384999701210476256}
   - component: {fileID: 1696616147879605587}
+  - component: {fileID: 2014046681810129192}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -371,8 +372,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56c19e6326f802e8290b93d8fc2648ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveForce: 50
-  maxSpeed: 5
   accelerationCurve:
     serializedVersion: 2
     m_Curve:
@@ -406,9 +405,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  maxBlinks: 1
-  blinkForce: 10
-  blinkCooldown: 1
 --- !u!114 &1329599014755178301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,7 +420,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  maxHealth: 20
+  spawnPoints:
+  - {x: 2.2783383e+36, y: 3.0803e-41}
 --- !u!114 &6384999701210476256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,7 +436,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 1
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0.05
   gun: {fileID: 8909761771586444554}
   bullet: {fileID: 6951862342918334977, guid: 35e380a1bc8e1dfcba9b8a4d2d992cf2, type: 3}
   bulletSpawnPoint: {fileID: 8688723239046013197}
@@ -459,6 +456,30 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   playerColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &2014046681810129192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6996597304130034024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 994abd93637e5c57b87e3bfb4af73733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  currentBodyStats: {fileID: 0}
+  baseBodyStats: {fileID: 11400000, guid: 707f3812e7b82bdd5b46ce12421360b1, type: 2}
+  currentWeaponStats: {fileID: 0}
+  baseWeaponStats: {fileID: 11400000, guid: fc912a2f27ca4b806ad9ead3d1ac0940, type: 2}
+  currentMovementStats: {fileID: 0}
+  baseMovementStats: {fileID: 11400000, guid: 6a178796ea4e8aa6985988c45984bbc0, type: 2}
+  currentBulletStats: {fileID: 0}
+  baseBulletStats: {fileID: 11400000, guid: b6b410d28019ba5ed86161d18345ad5b, type: 2}
+  testing: {fileID: 11400000, guid: bd4081c9e50898a46b268526fbd4357c, type: 2}
 --- !u!1 &7794818139001915241
 GameObject:
   m_ObjectHideFlags: 0

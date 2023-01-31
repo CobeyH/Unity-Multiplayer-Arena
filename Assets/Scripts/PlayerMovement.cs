@@ -5,19 +5,9 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    float moveForce;
-
-    [SerializeField]
-    float maxSpeed = 3;
-
-    [SerializeField]
     AnimationCurve accelerationCurve;
 
-    [SerializeField]
-    int maxBlinks;
-
-    [SerializeField]
-    float blinkForce, blinkCooldown;
+    private MovementStatsSO stats;
 
     private Rigidbody2D rigidBody;
     private Vector2 lookDirection, error;
@@ -36,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine(ResetBlinks(0));
         mainCam = Camera.main;
         renderers = GetComponentsInChildren<Renderer>();
+        stats = GetComponent<PlayerStats>().currentMovementStats;
     }
 
     // Update is called once per frame
@@ -66,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
         ).normalized;
         if (Input.GetMouseButton(1))
         {
-            error = lookDirection - rigidBody.velocity / maxSpeed;
+            error = lookDirection - rigidBody.velocity / stats.maxSpeed;
         }
         else
         {
@@ -124,20 +115,20 @@ public class PlayerMovement : MonoBehaviour
         if (error.magnitude > 0)
         {
             Vector2 moveDir = new Vector2(accelerationCurve.Evaluate(error.x), accelerationCurve.Evaluate(error.y));
-            rigidBody.AddForce(moveDir * moveForce, ForceMode2D.Force);
+            rigidBody.AddForce(moveDir * stats.acceleration, ForceMode2D.Force);
         }
         if (shouldBlink)
         {
-            rigidBody.AddForce(lookDirection * blinkForce, ForceMode2D.Impulse);
+            rigidBody.AddForce(lookDirection * stats.blinkForce, ForceMode2D.Impulse);
             blinksRemaining -= 1;
             shouldBlink = false;
-            StartCoroutine(ResetBlinks(blinkCooldown));
+            StartCoroutine(ResetBlinks(1f / stats.blinkRechargeRate));
         }
     }
 
     IEnumerator ResetBlinks(float duration)
     {
         yield return new WaitForSeconds(duration);
-        blinksRemaining = maxBlinks;
+        blinksRemaining = stats.blinkCharges;
     }
 }

@@ -105,7 +105,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1.44
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c2d1c015bf064293fa7a1c32f3f9f06c, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -122,7 +122,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 102843d7ab496864ea5332180de5e26b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalBulletSpeed: 10
+  bulletStats:
+    damage: 0
+    speed: 0
+    size: 0
+    falloff: 0
 --- !u!58 &-5348443915807572626
 CircleCollider2D:
   m_ObjectHideFlags: 0
