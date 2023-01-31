@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 457c56a0c964a96888e7b0284795e58a, type: 3}
   m_Name: BaseMovement
   m_EditorClassIdentifier: 
-  acceleration: 0
-  maxSpeed: 0
-  blinkRechargeRate: 0
-  blinkCharges: 0
-  blinkForce: 0
+  acceleration: 50
+  maxSpeed: 5
+  blinkRechargeRate: 1
+  blinkCharges: 1
+  blinkForce: 10

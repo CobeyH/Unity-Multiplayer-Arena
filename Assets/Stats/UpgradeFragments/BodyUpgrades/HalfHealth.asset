@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b99bb5967185d66ac8754c4693ab9286, type: 3}
   m_Name: HalfHealth
   m_EditorClassIdentifier: 
-  maxHealth: 0
+  maxHealth: -50
   size: 0
