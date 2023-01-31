@@ -56,12 +56,12 @@ public class PlayerStats : NetworkBehaviour
     private void CmdApplyUpgrade(UpgradeSO upgrade)
     {
         RpcApplyUpgrade(upgrade);
+        upgrades.Add(upgrade);
     }
 
     [ClientRpc]
     private void RpcApplyUpgrade(UpgradeSO upgrade)
     {
-        upgrades.Add(upgrade);
         if (upgrade.bodyChanges)
         {
             currentBodyStats.Add(upgrade.bodyChanges);
