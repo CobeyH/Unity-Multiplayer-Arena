@@ -30,7 +30,7 @@ public class UpgradeCard : MonoBehaviour
         GameObject localPlayer = NetworkClient.localPlayer.gameObject;
         PlayerStats stats = localPlayer.GetComponent<PlayerStats>();
         stats.CmdApplyUpgrade(upgrade);
-        Debug.Log("Applied Upgrade " + upgrade.title);
+        gameObject.transform.parent.gameObject.SetActive(false);
     }
 
     // public UpgradeSO GetCard(){
