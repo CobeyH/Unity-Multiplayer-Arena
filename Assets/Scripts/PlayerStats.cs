@@ -7,25 +7,21 @@ public class PlayerStats : NetworkBehaviour
 {
     // Main Stats
     [HideInInspector]
-    [SyncVar]
     public BodyStatsSO currentBodyStats;
     [SerializeField]
     private BodyStatsSO baseBodyStats;
 
     [HideInInspector]
-    [SyncVar]
     public WeaponStatsSO currentWeaponStats;
     [SerializeField]
     private WeaponStatsSO baseWeaponStats;
 
     [HideInInspector]
-    [SyncVar]
     public MovementStatsSO currentMovementStats;
     [SerializeField]
     private MovementStatsSO baseMovementStats;
 
     [HideInInspector]
-    [SyncVar(hook = nameof(PrintStats))]
     public BulletStatsSO currentBulletStats;
     [SerializeField]
     private BulletStatsSO baseBulletStats;
@@ -43,16 +39,6 @@ public class PlayerStats : NetworkBehaviour
         currentBulletStats = Instantiate(baseBulletStats);
     }
 
-    void PrintStats(BulletStatsSO _oldStats, BulletStatsSO _newStats)
-    {
-        if (!_oldStats)
-        {
-            Debug.Log("No Stats yet");
-            return;
-        }
-        Debug.Log(_oldStats.speed + " " + _newStats.speed);
-    }
-
     void Update()
     {
         if (Input.GetKeyDown("x"))
@@ -68,6 +54,12 @@ public class PlayerStats : NetworkBehaviour
 
     [Command]
     private void CmdApplyUpgrade(UpgradeSO upgrade)
+    {
+        RpcApplyUpgrade(upgrade);
+    }
+
+    [ClientRpc]
+    private void RpcApplyUpgrade(UpgradeSO upgrade)
     {
         upgrades.Add(upgrade);
         if (upgrade.bodyChanges)
