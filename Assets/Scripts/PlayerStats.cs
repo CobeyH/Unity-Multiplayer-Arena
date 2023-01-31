@@ -25,7 +25,7 @@ public class PlayerStats : NetworkBehaviour
     private MovementStatsSO baseMovementStats;
 
     [HideInInspector]
-    [SyncVar]
+    [SyncVar(hook = nameof(PrintStats))]
     public BulletStatsSO currentBulletStats;
     [SerializeField]
     private BulletStatsSO baseBulletStats;
@@ -41,6 +41,11 @@ public class PlayerStats : NetworkBehaviour
         currentWeaponStats = Instantiate(baseWeaponStats);
         currentMovementStats = Instantiate(baseMovementStats);
         currentBulletStats = Instantiate(baseBulletStats);
+    }
+
+    void PrintStats(BulletStatsSO _oldStats, BulletStatsSO _newStats)
+    {
+        Debug.Log(_oldStats.speed + " " + _newStats.speed);
     }
 
     void Update()
