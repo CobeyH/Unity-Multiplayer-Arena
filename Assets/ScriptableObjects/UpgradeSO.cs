@@ -11,4 +11,6 @@ public class UpgradeSO : ScriptableObject
     public string title;
     public string description;
     public Color backgroundColor;
+
+    public Sprite image;
 }
