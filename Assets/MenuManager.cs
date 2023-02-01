@@ -17,11 +17,26 @@ public class MenuManager : NetworkBehaviour
         waitingFrame.SetActive(true);
     }
 
+    public GameObject FindObject(GameObject parent, string name)
+    {
+        Transform[] trs = parent.GetComponentsInChildren<Transform>(true);
+        foreach (Transform t in trs)
+        {
+            if (t.name == name)
+            {
+                return t.gameObject;
+            }
+        }
+        return null;
+    }
+
     public void Awake()
     {
-        menuFrame = GameObject.Find("MenuFrame");
-        waitingFrame = GameObject.Find("WaitingFrame");
-        upgradeFrame = GameObject.Find("UpgradeFrame");
+        GameObject canvas = GameObject.Find("Canvas");
+
+        menuFrame = FindObject(canvas, "MenuFrame");
+        waitingFrame = FindObject(canvas, "WaitingFrame");
+        upgradeFrame = FindObject(canvas, "UpgradeFrame");
     }
 
     void Start()
