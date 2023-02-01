@@ -43,14 +43,14 @@ public class PlayerGun : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        CmdReload();
+        gunSprite.color = isReloading() ? Color.yellow : Color.green;
         if (!isLocalPlayer)
             return;
 
         HandleAimLook();
         HandleShooting();
 
-        gunSprite.color = isReloading() ? Color.yellow : Color.green;
+        CmdReload();
     }
 
     [Command]
