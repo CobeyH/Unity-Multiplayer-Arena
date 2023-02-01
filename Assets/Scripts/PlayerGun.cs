@@ -1,5 +1,6 @@
 using UnityEngine;
 using Mirror;
+using System.Collections;
 
 public class PlayerGun : NetworkBehaviour
 {
@@ -64,7 +65,16 @@ public class PlayerGun : NetworkBehaviour
     [ClientRpc]
     void RpcFireWeapon()
     {
-        GameObject bulletInstance = Instantiate(bullet, bulletSpawnPoint.position, gun.transform.rotation);
-        bulletInstance.GetComponent<BulletBehaviour>().bulletStats = stats.currentBulletStats;
+        StartCoroutine(FireBullets());
+    }
+
+    private IEnumerator FireBullets()
+    {
+        for (int i = 0; i < stats.currentWeaponStats.bulletCount; i++)
+        {
+            GameObject bulletInstance = Instantiate(bullet, bulletSpawnPoint.position, gun.transform.rotation);
+            bulletInstance.GetComponent<BulletBehaviour>().bulletStats = stats.currentBulletStats;
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 }
