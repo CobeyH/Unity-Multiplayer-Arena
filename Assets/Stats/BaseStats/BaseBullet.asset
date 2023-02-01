@@ -17,3 +17,4 @@ MonoBehaviour:
   size: 1
   falloff: 2
   maxBounces: 0
+  spread: 0

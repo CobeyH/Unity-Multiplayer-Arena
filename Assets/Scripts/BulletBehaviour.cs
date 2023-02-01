@@ -12,8 +12,10 @@ public class BulletBehaviour : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        SetStraightVelocity();
         SetSize();
+        float spreadAmount = Random.Range(-bulletStats.spread, bulletStats.spread);
+        transform.Rotate(0, 0, spreadAmount);
+        SetStraightVelocity();
         Destroy(gameObject, bulletStats.falloff);
     }
 
