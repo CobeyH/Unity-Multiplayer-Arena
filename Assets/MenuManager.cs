@@ -9,6 +9,8 @@ public class MenuManager : NetworkBehaviour
     public GameObject waitingFrame;
     public GameObject upgradeFrame;
 
+    [SyncVar]
+    bool lobbyJoined = false;
     bool gameStarted = false;
 
     public void OpenWaitingFrame()
@@ -47,24 +49,36 @@ public class MenuManager : NetworkBehaviour
         waitingFrame.SetActive(true);
     }
 
-    void Update()
+    [Client]
+    void FixedUpdate()
     {
-        if (!isServer || gameStarted)
-            return;
-
-        if (NetworkServer.connections.Count > 1)
+        if (!isLocalPlayer) return;
+        if (lobbyJoined)
         {
             OpenUpgradeFrame();
             gameStarted = true;
         }
     }
 
+    [ServerCallback]
+    void Update()
+    {
+        if (lobbyJoined)
+        {
+            return;
+        }
+
+        if (NetworkServer.connections.Count > 1)
+        {
+            Debug.Log("Opening upgrade frame");
+            lobbyJoined = true;
+        }
+    }
+
     [ClientRpc]
     void OpenUpgradeFrame()
     {
-        if (!isLocalPlayer)
-            return;
-
+        Debug.Log("Client RPC called");
         menuFrame.SetActive(false);
         waitingFrame.SetActive(false);
 
