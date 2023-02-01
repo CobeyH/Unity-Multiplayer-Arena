@@ -74,7 +74,9 @@ public class PlayerGun : NetworkBehaviour
         {
             GameObject bulletInstance = Instantiate(bullet, bulletSpawnPoint.position, gun.transform.rotation);
             bulletInstance.GetComponent<BulletBehaviour>().bulletStats = stats.currentBulletStats;
-            yield return new WaitForSeconds(0.1f);
+            Vector2 shipVelocity = gameObject.GetComponent<Rigidbody2D>().velocity;
+            bulletInstance.GetComponent<Rigidbody2D>().velocity = shipVelocity;
+            yield return new WaitForSeconds(0.02f);
         }
     }
 }

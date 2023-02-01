@@ -19,7 +19,7 @@ public class BulletBehaviour : MonoBehaviour
 
     void SetStraightVelocity()
     {
-        rb.velocity = transform.right * bulletStats.speed;
+        rb.AddForce(transform.right * bulletStats.speed * 0.1f, ForceMode2D.Impulse);
     }
 
     void SetSize()
