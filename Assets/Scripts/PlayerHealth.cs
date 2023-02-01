@@ -20,6 +20,15 @@ public class PlayerHealth : NetworkBehaviour
         CmdSpawn();
     }
 
+    void Update()
+    {
+        // To do optimize, player size
+        transform.localScale = new Vector2(
+            stats.currentBodyStats.size,
+            stats.currentBodyStats.size
+        );
+    }
+
     [Command]
     private void CmdSpawn()
     {

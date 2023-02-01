@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 740260117584476045}
   - component: {fileID: 836104438703390866}
   m_Layer: 0
-  m_Name: Gun
+  m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -440,6 +440,9 @@ MonoBehaviour:
   gun: {fileID: 8909761771586444554}
   bullet: {fileID: 6951862342918334977, guid: 35e380a1bc8e1dfcba9b8a4d2d992cf2, type: 3}
   bulletSpawnPoint: {fileID: 8688723239046013197}
+  reloadingProgress: {r: 1, g: 0.728225, b: 0.16509432, a: 0}
+  reloadingReady: {r: 0.080322154, g: 0.8962264, b: 0.26053542, a: 0}
+  gunImage: {fileID: 1821299666720090916}
 --- !u!114 &1696616147879605587
 MonoBehaviour:
   m_ObjectHideFlags: 0
