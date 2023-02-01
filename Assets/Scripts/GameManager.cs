@@ -28,6 +28,10 @@ public class GameManager : NetworkBehaviour
 
         if (NetworkServer.connections.Count > 1)
         {
+            for (int i = 0; i < 9999999; i++)
+            {
+                Debug.Log("yolo");
+            }
             OpenUpgradeFrame();
             gameStarted = true;
         }
