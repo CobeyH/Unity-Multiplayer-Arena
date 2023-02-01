@@ -84,6 +84,11 @@ public class PlayerHealth : NetworkBehaviour
     // Used by HealthBar
     public float GetHealthPercentage()
     {
+        if (maxHealth == 0)
+        {
+            Debug.LogError("Max health is 0");
+            return 0;
+        }
         return Mathf.Max(0, currentHealth / (float)maxHealth);
     }
 }
