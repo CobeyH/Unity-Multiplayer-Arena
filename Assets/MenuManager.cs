@@ -42,16 +42,15 @@ public class MenuManager : NetworkBehaviour
     void Start()
     {
         menuFrame.SetActive(false);
+        upgradeFrame.SetActive(false);
+
         waitingFrame.SetActive(true);
     }
 
-    [Server]
     void Update()
     {
-        if (gameStarted)
+        if (!isServer || gameStarted)
             return;
-
-        Debug.Log("gamemanager update");
 
         if (NetworkServer.connections.Count > 1)
         {
@@ -66,10 +65,9 @@ public class MenuManager : NetworkBehaviour
         if (!isLocalPlayer)
             return;
 
-        Debug.Log("open upgrade frame ran");
-
         menuFrame.SetActive(false);
         waitingFrame.SetActive(false);
+
         upgradeFrame.SetActive(true);
     }
 }
