@@ -23,6 +23,7 @@ public class PlayerGun : NetworkBehaviour
 
     SpriteRenderer gunSprite;
 
+    [SyncVar]
     private float reloadTime = 0f;
 
     private bool isReloading() => reloadTime > 0;
@@ -48,8 +49,14 @@ public class PlayerGun : NetworkBehaviour
         HandleAimLook();
         HandleShooting();
 
-        reloadTime -= Time.deltaTime;
+        CmdReload();
         gunSprite.color = isReloading() ? Color.yellow : Color.green;
+    }
+
+    [Command]
+    void CmdReload()
+    {
+        reloadTime -= Time.deltaTime;
     }
 
     void HandleAimLook()
