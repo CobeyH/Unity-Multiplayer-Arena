@@ -33,7 +33,7 @@ public class PlayerHealth : NetworkBehaviour
     private void RpcSpawn(uint id)
     {
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-        gameObject.transform.position = respawns[id - 1].transform.position;
+        gameObject.transform.position = respawns[(id - 1) % 2].transform.position;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
