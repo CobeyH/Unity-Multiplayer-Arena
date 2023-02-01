@@ -15,8 +15,7 @@ public class PlayerHealth : NetworkBehaviour
     private void Start()
     {
         stats = GetComponent<PlayerStats>();
-        maxHealth = stats.currentBodyStats.maxHealth;
-        currentHealth = maxHealth;
+        currentHealth = stats.currentBodyStats.maxHealth;
         respawns = GameObject.FindGameObjectsWithTag("Respawn");
         CmdSpawn();
     }

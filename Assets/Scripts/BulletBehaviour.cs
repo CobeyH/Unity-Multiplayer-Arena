@@ -3,6 +3,8 @@ using UnityEngine;
 public class BulletBehaviour : MonoBehaviour
 {
     private Rigidbody2D rb;
+    // Set by player gun when bullet is fired
+    [HideInInspector]
     public BulletStatsSO bulletStats;
     private int bounces = 0;
 
@@ -11,12 +13,18 @@ public class BulletBehaviour : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         SetStraightVelocity();
+        SetSize();
         Destroy(gameObject, bulletStats.falloff);
     }
 
     void SetStraightVelocity()
     {
         rb.velocity = transform.right * bulletStats.speed;
+    }
+
+    void SetSize()
+    {
+        transform.localScale *= bulletStats.size;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
