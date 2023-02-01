@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: BaseWeapon
   m_EditorClassIdentifier: 
   bulletCount: 1
-  reloadSpeed: 5
+  reloadSpeed: 2
