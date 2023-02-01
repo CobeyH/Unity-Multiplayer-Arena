@@ -10,17 +10,23 @@ public class PlayerHealth : NetworkBehaviour
     [SyncVar]
     private int currentHealth;
 
-    private int maxHealth;
-
     private GameObject[] respawns;
 
     private void Start()
     {
         stats = GetComponent<PlayerStats>();
-        maxHealth = stats.currentBodyStats.maxHealth;
-        currentHealth = maxHealth;
+        currentHealth = stats.currentBodyStats.maxHealth;
         respawns = GameObject.FindGameObjectsWithTag("Respawn");
         CmdSpawn();
+    }
+
+    void Update()
+    {
+        // To do optimize, player size
+        transform.localScale = new Vector2(
+            stats.currentBodyStats.size,
+            stats.currentBodyStats.size
+        );
     }
 
     [Command]
@@ -51,7 +57,7 @@ public class PlayerHealth : NetworkBehaviour
         if (currentHealth <= 0)
         {
             RpcRespawn();
-            currentHealth = maxHealth;
+            currentHealth = stats.currentBodyStats.maxHealth;
         }
     }
 
@@ -78,12 +84,13 @@ public class PlayerHealth : NetworkBehaviour
         // }
 
         // Simpler method to achieve the same thing lol
+        // TODO: FIX THIS
         gameObject.transform.position = new Vector2(99, 99);
     }
 
     // Used by HealthBar
     public float GetHealthPercentage()
     {
-        return Mathf.Max(0, currentHealth / (float)maxHealth);
+        return Mathf.Max(0, currentHealth / (float)stats.currentBodyStats.maxHealth);
     }
 }
