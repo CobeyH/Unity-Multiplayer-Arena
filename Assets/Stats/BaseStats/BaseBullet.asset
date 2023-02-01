@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: BaseBullet
   m_EditorClassIdentifier: 
   damage: 10
-  speed: 3
+  speed: 5
   size: 1
   falloff: 2
   maxBounces: 0
+  spread: 0

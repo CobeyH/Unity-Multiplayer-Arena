@@ -11,5 +11,4 @@ public class BodyStatsSO : ScriptableObject
         maxHealth += addition.maxHealth;
         size += addition.size;
     }
-
 }
