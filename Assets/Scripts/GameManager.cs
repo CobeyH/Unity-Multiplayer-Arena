@@ -158,13 +158,7 @@ public class GameManager : NetworkManager
         base.OnServerAddPlayer(conn);
         Debug.Log("Hey added you");
     }
-
-    [ClientRpc]
-    public void yolo()
-    {
-        Debug.Log("hello from the Client RPC ");
-    }
-
+    
     /// <summary>
     /// Called on the server when a client disconnects.
     /// <para>This is called on the Server when a Client disconnects from the Server. Use an override to decide what should happen when a disconnection is detected.</para>
