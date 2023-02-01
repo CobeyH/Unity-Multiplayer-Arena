@@ -22,7 +22,12 @@ public class MenuManager : NetworkBehaviour
         menuFrame = GameObject.Find("MenuFrame");
         waitingFrame = GameObject.Find("WaitingFrame");
         upgradeFrame = GameObject.Find("UpgradeFrame");
-        
+    }
+
+    void Start()
+    {
+        menuFrame.SetActive(false);
+        waitingFrame.SetActive(true);
     }
 
     [Server]
@@ -43,6 +48,9 @@ public class MenuManager : NetworkBehaviour
     [ClientRpc]
     void OpenUpgradeFrame()
     {
+        if (!isLocalPlayer)
+            return;
+
         Debug.Log("open upgrade frame ran");
 
         menuFrame.SetActive(false);
