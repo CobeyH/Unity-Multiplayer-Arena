@@ -18,10 +18,13 @@ public class GameManager : NetworkBehaviour
         waitingFrame.SetActive(true);
     }
 
+    [Server]
     void Update()
     {
-        if (!isServer || gameStarted)
+        if (gameStarted)
             return;
+
+        Debug.Log("gamemanager update");
 
         if (NetworkServer.connections.Count > 1)
         {
@@ -33,6 +36,9 @@ public class GameManager : NetworkBehaviour
     [ClientRpc]
     void OpenUpgradeFrame()
     {
+        Debug.Log("open upgrade frame ran");
+
+        menuFrame.SetActive(false);
         waitingFrame.SetActive(false);
         upgradeFrame.SetActive(true);
     }
