@@ -37,7 +37,7 @@ public class CardSpawner : NetworkBehaviour
         Debug.Log("Starting local player");
     }
 
-    [ServerCallback]
+    [Command(requiresAuthority = false)]
     void CmdFindUpgradeOptions(UpgradeSO[] uprgds)
     {
         // Knuth shuffle algorithm :: courtesy of Wikipedia :)
