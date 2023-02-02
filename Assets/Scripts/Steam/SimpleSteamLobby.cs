@@ -66,6 +66,7 @@ public class SimpleSteamLobby : MonoBehaviour
         if (playerCount > 1)
         {
             MenuManager.Instance.OpenUpgradeFrame();
+            GameState.Instance.StartGame();
         }
     }
 

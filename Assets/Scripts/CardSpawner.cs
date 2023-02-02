@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Mirror;
+using UnityEngine.UI;
 
 public class CardSpawner : NetworkBehaviour
 {
@@ -31,34 +32,37 @@ public class CardSpawner : NetworkBehaviour
         }
     }
 
-    public override void OnStartClient()
-    {
-        CmdFindUpgradeOptions(allUpgrades);
-        Debug.Log("Starting local player");
-    }
+    // public override void OnStartClient()
+    // {
+    //     CmdFindUpgradeOptions(allUpgrades);
+    //     Debug.Log("Starting local player");
+    // }
 
     [Command(requiresAuthority = false)]
-    void CmdFindUpgradeOptions(UpgradeSO[] uprgds)
+    public void CmdFindUpgradeOptions(uint playerId)
     {
         // Knuth shuffle algorithm :: courtesy of Wikipedia :)
-        for (int t = 0; t < uprgds.Length; t++)
+        for (int t = 0; t < allUpgrades.Length; t++)
         {
-            UpgradeSO tmp = uprgds[t];
-            int r = Random.Range(t, uprgds.Length);
-            uprgds[t] = uprgds[r];
-            uprgds[r] = tmp;
+            UpgradeSO tmp = allUpgrades[t];
+            int r = Random.Range(t, allUpgrades.Length);
+            allUpgrades[t] = allUpgrades[r];
+            allUpgrades[r] = tmp;
         }
         Debug.Log("Server shuffling");
-        RpcDisplayCards(uprgds.Take<UpgradeSO>(5).ToArray());
+        //TODO: fixed hard coded "true"
+        RpcDisplayCards(allUpgrades.Take<UpgradeSO>(5).ToArray(), playerId);
     }
 
     [ClientRpc]
-    void RpcDisplayCards(UpgradeSO[] upgrades)
+    void RpcDisplayCards(UpgradeSO[] upgrades, uint playerId)
     {
         Debug.Log("Client dispalying cards");
         for (int i = 0; i < numCards; i++)
         {
             allCards[i].GetComponent<UpgradeCard>().SetCard(upgrades[i]);
+            Debug.Log("Player Network Id " + netId);
+            // allCards[i].GetComponent<Button>().interactable = 
         }
     }
 }
