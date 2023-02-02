@@ -36,7 +36,7 @@ public class SimpleSteamLobby : MonoBehaviour
 
     }
 
-    public void RequestLobbies()
+    public void RequestLobbyList()
     {
         SteamMatchmaking.AddRequestLobbyListFilterSlotsAvailable(1);
         SteamMatchmaking.AddRequestLobbyListStringFilter("gamemode", "1v1", 0);
@@ -73,6 +73,10 @@ public class SimpleSteamLobby : MonoBehaviour
         if (callback.m_nLobbiesMatching == 0)
         {
             HostLobby();
+        }
+        else
+        {
+            SteamMatchmaking.JoinLobby(SteamMatchmaking.GetLobbyByIndex(0));
         }
         Debug.Log(callback);
     }
