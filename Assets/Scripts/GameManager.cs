@@ -145,7 +145,6 @@ public class GameManager : NetworkManager
     public override void OnServerReady(NetworkConnectionToClient conn)
     {
         base.OnServerReady(conn);
-        Debug.Log("Hey we ready");
     }
 
     /// <summary>
@@ -156,7 +155,6 @@ public class GameManager : NetworkManager
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         base.OnServerAddPlayer(conn);
-        Debug.Log("Hey added you");
     }
     
     /// <summary>
