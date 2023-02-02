@@ -47,6 +47,7 @@ public class SimpleSteamLobby : MonoBehaviour
     {
         SteamMatchmaking.AddRequestLobbyListFilterSlotsAvailable(1);
         SteamMatchmaking.AddRequestLobbyListStringFilter("gamemode", "1v1", 0);
+        SteamMatchmaking.AddRequestLobbyListDistanceFilter(ELobbyDistanceFilter.k_ELobbyDistanceFilterWorldwide);
         SteamMatchmaking.RequestLobbyList();
     }
 
