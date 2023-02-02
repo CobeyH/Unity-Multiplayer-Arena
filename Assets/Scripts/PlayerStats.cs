@@ -53,7 +53,7 @@ public class PlayerStats : NetworkBehaviour
     }
 
     [Command]
-    private void CmdApplyUpgrade(UpgradeSO upgrade)
+    public void CmdApplyUpgrade(UpgradeSO upgrade)
     {
         RpcApplyUpgrade(upgrade);
         upgrades.Add(upgrade);
@@ -62,6 +62,7 @@ public class PlayerStats : NetworkBehaviour
     [ClientRpc]
     private void RpcApplyUpgrade(UpgradeSO upgrade)
     {
+        Debug.Log("Received upgrade!:" + upgrade.title);
         if (upgrade.bodyChanges)
         {
             currentBodyStats.Add(upgrade.bodyChanges);
