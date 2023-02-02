@@ -2,14 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Mirror;
 
-public class CardSpawner : MonoBehaviour
+public class CardSpawner : NetworkBehaviour
 {
     [SerializeField]
     int numCards = 5;
 
     [SerializeField]
     GameObject cardPrefab;
+
+    [SerializeField]
+    GameObject cardContainer;
 
     UpgradeSO[] allUpgrades;
 
@@ -23,21 +27,18 @@ public class CardSpawner : MonoBehaviour
         allCards = new List<GameObject>();
         for (int i = 0; i < numCards; i++)
         {
-            allCards.Add(Instantiate(cardPrefab, transform));
+            allCards.Add(Instantiate(cardPrefab, cardContainer.transform));
         }
     }
 
-    void OnEnable()
+    public override void OnStartClient()
     {
-        CardShuffle(allUpgrades);
-
-        for (int i = 0; i < numCards; i++)
-        {
-            allCards[i].GetComponent<UpgradeCard>().SetCard(allUpgrades[i]);
-        }
+        CmdFindUpgradeOptions(allUpgrades);
+        Debug.Log("Starting local player");
     }
 
-    void CardShuffle(UpgradeSO[] uprgds)
+    [ServerCallback]
+    void CmdFindUpgradeOptions(UpgradeSO[] uprgds)
     {
         // Knuth shuffle algorithm :: courtesy of Wikipedia :)
         for (int t = 0; t < uprgds.Length; t++)
@@ -46,6 +47,18 @@ public class CardSpawner : MonoBehaviour
             int r = Random.Range(t, uprgds.Length);
             uprgds[t] = uprgds[r];
             uprgds[r] = tmp;
+        }
+        Debug.Log("Server shuffling");
+        RpcDisplayCards(uprgds.Take<UpgradeSO>(5).ToArray());
+    }
+
+    [ClientRpc]
+    void RpcDisplayCards(UpgradeSO[] upgrades)
+    {
+        Debug.Log("Client dispalying cards");
+        for (int i = 0; i < numCards; i++)
+        {
+            allCards[i].GetComponent<UpgradeCard>().SetCard(upgrades[i]);
         }
     }
 }

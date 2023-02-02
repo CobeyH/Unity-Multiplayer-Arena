@@ -15,6 +15,8 @@ public class SimpleSteamLobby : MonoBehaviour
     private NetworkManager networkManager;
     private ulong lobbyID;
 
+    private bool solo_mode = false;
+
     const string HostAddressKey = "HostAddress";
 
     void Start()
@@ -35,6 +37,12 @@ public class SimpleSteamLobby : MonoBehaviour
             OnConnectionChange
         );
         startButton.enabled = true;
+    }
+
+    public void StartSolo()
+    {
+        solo_mode = true;
+        HostLobby();
     }
 
     public void HostLobby()
@@ -104,6 +112,10 @@ public class SimpleSteamLobby : MonoBehaviour
     void OnLobbyEntered(LobbyEnter_t callback)
     {
         lobbyID = callback.m_ulSteamIDLobby;
+        if (solo_mode)
+        {
+            MenuManager.Instance.OpenUpgradeFrame();
+        }
 
         // If you are the host
         if (NetworkServer.active)
