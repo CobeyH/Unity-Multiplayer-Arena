@@ -11,7 +11,6 @@ public class SimpleSteamLobby : MonoBehaviour
     protected Callback<GameLobbyJoinRequested_t> gameLobbyJoinRequested;
     protected Callback<LobbyEnter_t> lobbyEntered;
     protected Callback<LobbyMatchList_t> lobbysListed;
-    protected Callback<LobbyDataUpdate_t> lobbyDataUpdate;
     protected Callback<SteamNetConnectionStatusChangedCallback_t> connectionUpdate;
     private NetworkManager networkManager;
     private ulong lobbyID;
@@ -32,7 +31,6 @@ public class SimpleSteamLobby : MonoBehaviour
         );
         lobbyEntered = Callback<LobbyEnter_t>.Create(OnLobbyEntered);
         lobbysListed = Callback<LobbyMatchList_t>.Create(OnLobbysListed);
-        lobbyDataUpdate = Callback<LobbyDataUpdate_t>.Create(OnLobbyDataUpdated);
         connectionUpdate = Callback<SteamNetConnectionStatusChangedCallback_t>.Create(
             OnConnectionChange
         );
@@ -52,23 +50,9 @@ public class SimpleSteamLobby : MonoBehaviour
         SteamMatchmaking.RequestLobbyList();
     }
 
-    void OnLobbyDataUpdated(LobbyDataUpdate_t callback)
-    {
-        bool isLobby = callback.m_ulSteamIDMember == callback.m_ulSteamIDLobby;
-        bool isSelf = SteamUser.GetSteamID().m_SteamID == callback.m_ulSteamIDMember;
-
-        int playerCount = SteamMatchmaking.GetNumLobbyMembers(
-            new CSteamID(callback.m_ulSteamIDLobby)
-        );
-        Debug.Log("isLobby: " + isLobby + " isSelf: " + isSelf + " playerCount " + playerCount);
-        // if (isLobby || isSelf)
-        //     return;
-    }
-
     void OnConnectionChange(SteamNetConnectionStatusChangedCallback_t callback)
     {
         int playerCount = SteamMatchmaking.GetNumLobbyMembers(new CSteamID(lobbyID));
-        Debug.Log("num Players: " + playerCount);
 
         if (playerCount > 1)
         {
