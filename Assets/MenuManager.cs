@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class MenuManager : NetworkBehaviour
+public class MenuManager : MonoBehaviour
 {
     public GameObject menuFrame;
     public GameObject waitingFrame;
