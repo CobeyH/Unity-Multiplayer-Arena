@@ -9,12 +9,14 @@ public class SimpleSteamLobby : MonoBehaviour
     protected Callback<LobbyCreated_t> lobbyCreated;
     protected Callback<GameLobbyJoinRequested_t> gameLobbyJoinRequested;
     protected Callback<LobbyEnter_t> lobbyEntered;
+    protected Callback<LobbyMatchList_t> lobbysListed;
     private NetworkManager networkManager;
 
     const string HostAddressKey = "HostAddress";
 
     void Start()
     {
+
         networkManager = GetComponent<NetworkManager>();
 
         if (!SteamManager.Initialized) return;
@@ -23,12 +25,20 @@ public class SimpleSteamLobby : MonoBehaviour
         lobbyCreated = Callback<LobbyCreated_t>.Create(OnLobbyCreated);
         gameLobbyJoinRequested = Callback<GameLobbyJoinRequested_t>.Create(OnGameLobbyJoinRequested);
         lobbyEntered = Callback<LobbyEnter_t>.Create(OnLobbyEntered);
+        lobbysListed = Callback<LobbyMatchList_t>.Create(OnLobbysListed);
         startButton.enabled = true;
     }
 
     public void HostLobby()
     {
-        SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePublic, 10);
+        SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePublic, 2);
+    }
+
+    public void RequestLobbies()
+    {
+        SteamMatchmaking.AddRequestLobbyListFilterSlotsAvailable(1);
+        SteamMatchmaking.AddRequestLobbyListStringFilter("gamemode", "1v1", 0);
+        SteamMatchmaking.RequestLobbyList();
     }
 
     void OnLobbyCreated(LobbyCreated_t callback)
@@ -47,6 +57,22 @@ public class SimpleSteamLobby : MonoBehaviour
             HostAddressKey,
             SteamUser.GetSteamID().ToString()
         );
+        SteamMatchmaking.SetLobbyData(
+            new CSteamID(callback.m_ulSteamIDLobby),
+            "gamemode",
+            "1v1"
+        );
+    }
+
+    void OnLobbysListed(LobbyMatchList_t callback)
+    {
+        Debug.Log("Lobbies found: " + callback.m_nLobbiesMatching);
+        // If there aren't any lobbies available to join, then become a host yourself;
+        if (callback.m_nLobbiesMatching == 0)
+        {
+            HostLobby();
+        }
+        Debug.Log(callback);
     }
 
     void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t callback)

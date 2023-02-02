@@ -52,7 +52,7 @@ public class MenuManager : NetworkBehaviour
     [Client]
     void FixedUpdate()
     {
-        if (!isLocalPlayer) return;
+        if (!isLocalPlayer || gameStarted) return;
         if (lobbyJoined)
         {
             OpenUpgradeFrame();
@@ -75,7 +75,6 @@ public class MenuManager : NetworkBehaviour
         }
     }
 
-    [ClientRpc]
     void OpenUpgradeFrame()
     {
         Debug.Log("Client RPC called");
