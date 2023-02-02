@@ -32,6 +32,8 @@ public class SimpleSteamLobby : MonoBehaviour
     public void HostLobby()
     {
         SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePublic, 2);
+        MenuManager.Instance.OpenWaitingFrame();
+
     }
 
     public void RequestLobbies()
@@ -94,5 +96,6 @@ public class SimpleSteamLobby : MonoBehaviour
 
         networkManager.networkAddress = hostAddress;
         networkManager.StartClient();
+        MenuManager.Instance.OpenUpgradeFrame();
     }
 }

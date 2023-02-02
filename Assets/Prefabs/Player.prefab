@@ -201,7 +201,6 @@ GameObject:
   - component: {fileID: 6384999701210476256}
   - component: {fileID: 1696616147879605587}
   - component: {fileID: 2014046681810129192}
-  - component: {fileID: 2527085543046922746}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -482,18 +481,6 @@ MonoBehaviour:
   currentBulletStats: {fileID: 0}
   baseBulletStats: {fileID: 11400000, guid: b6b410d28019ba5ed86161d18345ad5b, type: 2}
   testing: {fileID: 11400000, guid: bd4081c9e50898a46b268526fbd4357c, type: 2}
---- !u!114 &2527085543046922746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6996597304130034024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8109196d18d84714db0cd496532ca74b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7794818139001915241
 GameObject:
   m_ObjectHideFlags: 0
