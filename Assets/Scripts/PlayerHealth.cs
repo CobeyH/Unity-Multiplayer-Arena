@@ -50,32 +50,36 @@ public class PlayerHealth : NetworkBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet") && isLocalPlayer)
         {
-            CmdInflictDamage(stats.currentBulletStats.damage);
+            CmdInflictDamage(gameObject, stats.currentBulletStats.damage);
         }
     }
 
     [Command]
-    public void CmdInflictDamage(int damageAmount)
+    public void CmdInflictDamage(GameObject player, int damageAmount)
     {
+        NetworkIdentity identity = player.GetComponent<NetworkIdentity>();
+
         currentHealth -= damageAmount;
         if (currentHealth <= 0)
         {
             currentHealth = stats.currentBodyStats.maxHealth;
-            RpcRespawn(netId);
+            RpcRespawn(identity.connectionToClient.connectionId);
         }
     }
 
     [ClientRpc]
-    private void RpcRespawn(uint netId)
+    private void RpcRespawn(int connId)
     {
-        StartCoroutine(RespawnPlayer(2, netId));
+        Debug.Log("net " + connId);
+
+        StartCoroutine(RespawnPlayer(2, connId));
     }
 
-    private IEnumerator RespawnPlayer(float t, uint netId)
+    private IEnumerator RespawnPlayer(float t, int connId)
     {
         ChangePlayerVisibilityTo(false);
         yield return new WaitForSeconds(t);
-        GameState.Instance.CmdShowUpgrades((int)netId);
+        GameState.Instance.CmdShowUpgrades(connId);
         CmdSpawn();
         ChangePlayerVisibilityTo(true);
     }
