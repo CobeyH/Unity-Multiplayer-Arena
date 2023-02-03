@@ -122,11 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 102843d7ab496864ea5332180de5e26b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletStats:
-    damage: 0
-    speed: 0
-    size: 0
-    falloff: 0
+  bulletStats: {fileID: 0}
 --- !u!58 &-5348443915807572626
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -179,7 +175,7 @@ MonoBehaviour:
   clientAuthority: 0
   syncPosition: 1
   syncRotation: 1
-  syncScale: 0
+  syncScale: 1
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
