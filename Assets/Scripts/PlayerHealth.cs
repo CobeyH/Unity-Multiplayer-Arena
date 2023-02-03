@@ -66,6 +66,7 @@ public class PlayerHealth : NetworkBehaviour
         currentHealth -= damageAmount;
         if (currentHealth <= 0)
         {
+            GameState.Instance.CmdAddPointTo(identity.connectionToClient.connectionId);
             RpcRespawn(identity.connectionToClient.connectionId);
             currentHealth = stats.currentBodyStats.maxHealth;
         }
