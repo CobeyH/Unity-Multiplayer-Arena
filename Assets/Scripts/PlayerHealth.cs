@@ -43,6 +43,7 @@ public class PlayerHealth : NetworkBehaviour
     public void CmdSpawn(NetworkConnectionToClient conn = null)
     {
         RpcSpawn(conn.connectionId);
+        currentHealth = stats.currentBodyStats.maxHealth;
     }
 
     [ClientRpc]
@@ -69,8 +70,8 @@ public class PlayerHealth : NetworkBehaviour
         currentHealth -= damageAmount;
         if (currentHealth <= 0)
         {
-            currentHealth = stats.currentBodyStats.maxHealth;
             RpcRespawn(identity.connectionToClient.connectionId);
+            currentHealth = stats.currentBodyStats.maxHealth;
         }
     }
 
