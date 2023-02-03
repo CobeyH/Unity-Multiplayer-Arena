@@ -33,8 +33,16 @@ public class GameState : NetworkBehaviour
     public void CmdStartGame()
     {
         cardSpawner.CmdFindUpgradeOptions();
+        CmdShowUpgrades(0);
+    }
 
-        // cardSpawner.CmdSendCardsToClient(playerConnections[0], true);
-        cardSpawner.TargetDisplayCards(playerConnections[0], cardSpawner.allUpgrades.Take<UpgradeSO>(5).ToArray(), true);
+    [Command(requiresAuthority = false)]
+    void CmdShowUpgrades(int playerToUpgrade)
+    {
+        for (int i = 0; i < playerConnections.Count; i++)
+        {
+            bool isActivePlayer = playerToUpgrade == i;
+            cardSpawner.TargetDisplayCards(playerConnections[i], cardSpawner.allUpgrades.Take<UpgradeSO>(5).ToArray(), isActivePlayer);
+        }
     }
 }

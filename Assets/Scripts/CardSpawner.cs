@@ -52,12 +52,6 @@ public class CardSpawner : NetworkBehaviour
         Debug.Log("Server shuffling");
     }
 
-    // [Command(requiresAuthority = false)]
-    // public void CmdSendCardsToClient(NetworkConnectionToClient conn, bool shouldShow)
-    // {
-    //     TargetDisplayCards(conn, allUpgrades.Take<UpgradeSO>(5).ToArray(), shouldShow);
-    // }
-
     [TargetRpc]
     public void TargetDisplayCards(NetworkConnection conn, UpgradeSO[] upgrades, bool shouldShow)
     {
