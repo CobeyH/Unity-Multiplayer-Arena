@@ -92,7 +92,6 @@ public class SimpleSteamLobby : MonoBehaviour
 
     void OnLobbysListed(LobbyMatchList_t callback)
     {
-        Debug.Log("Lobbies found: " + callback.m_nLobbiesMatching);
         // If there aren't any lobbies available to join, then become a host yourself;
         if (callback.m_nLobbiesMatching == 0)
         {
@@ -102,7 +101,6 @@ public class SimpleSteamLobby : MonoBehaviour
         {
             SteamMatchmaking.JoinLobby(SteamMatchmaking.GetLobbyByIndex(0));
         }
-        Debug.Log(callback);
     }
 
     void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t callback)

@@ -41,8 +41,13 @@ public class GameState : NetworkBehaviour
         }
     }
 
-    [Command]
     public void StartGame()
+    {
+        CmdStartGame();
+    }
+
+    [Command]
+    public void CmdStartGame()
     {
         cardSpawner.CmdFindUpgradeOptions(netId);
     }

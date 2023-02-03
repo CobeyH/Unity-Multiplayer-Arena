@@ -57,11 +57,12 @@ public class CardSpawner : NetworkBehaviour
     [ClientRpc]
     void RpcDisplayCards(UpgradeSO[] upgrades, uint playerId)
     {
-        Debug.Log("Client dispalying cards");
+        Debug.Log("Player Network Id " + playerId);
+        Debug.Log("Net Id" + netId);
+
         for (int i = 0; i < numCards; i++)
         {
             allCards[i].GetComponent<UpgradeCard>().SetCard(upgrades[i]);
-            Debug.Log("Player Network Id " + netId);
             // allCards[i].GetComponent<Button>().interactable = 
         }
     }
