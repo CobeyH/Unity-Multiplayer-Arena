@@ -50,46 +50,48 @@ public class PlayerHealth : NetworkBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet") && isLocalPlayer)
         {
-            CmdInflictDamage(stats.currentBulletStats.damage);
+            CmdInflictDamage(gameObject, stats.currentBulletStats.damage);
         }
     }
 
     [Command]
-    public void CmdInflictDamage(int damageAmount)
+    public void CmdInflictDamage(GameObject player, int damageAmount)
     {
+        NetworkIdentity identity = player.GetComponent<NetworkIdentity>();
+
         currentHealth -= damageAmount;
         if (currentHealth <= 0)
         {
-            RpcRespawn();
             currentHealth = stats.currentBodyStats.maxHealth;
+            RpcRespawn(identity.connectionToClient.connectionId);
         }
     }
 
     [ClientRpc]
-    private void RpcRespawn()
+    private void RpcRespawn(int connId)
     {
-        StartCoroutine(RespawnPlayer(2));
+        Debug.Log("net " + connId);
+
+        StartCoroutine(RespawnPlayer(2, connId));
     }
 
-    private IEnumerator RespawnPlayer(float t)
+    private IEnumerator RespawnPlayer(float t, int connId)
     {
-        HidePlayer();
+        ChangePlayerVisibilityTo(false);
         yield return new WaitForSeconds(t);
+        GameState.Instance.CmdShowUpgrades(connId);
         CmdSpawn();
+        ChangePlayerVisibilityTo(true);
     }
 
-    private void HidePlayer()
+    private void ChangePlayerVisibilityTo(bool shouldShow)
     {
         // Hide all sprite renderers within a game object
-        // SpriteRenderer[] All = GetComponentsInChildren<SpriteRenderer>();
-        // foreach (var sr in All)
-        // {
-        //     sr.enabled = false;
-        // }
-
-        // Simpler method to achieve the same thing lol
-        // TODO: FIX THIS
-        gameObject.transform.position = new Vector2(99, 99);
+        SpriteRenderer[] All = GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer sr in All)
+        {
+            sr.enabled = shouldShow;
+        }
     }
 
     // Used by HealthBar

@@ -57,12 +57,20 @@ public class PlayerStats : NetworkBehaviour
     {
         RpcApplyUpgrade(upgrade);
         upgrades.Add(upgrade);
+        if (!GameState.Instance.allPlayersUpgraded)
+        {
+            GameState.Instance.CmdUpgradeNextPlayer();
+        }
+        else
+        {
+            RpcHideAllFrames();
+        }
     }
 
     [ClientRpc]
     private void RpcApplyUpgrade(UpgradeSO upgrade)
     {
-        Debug.Log("Received upgrade!:" + upgrade.title);
+        Debug.Log("Received Upgrade: " + upgrade.title);
         if (upgrade.bodyChanges)
         {
             currentBodyStats.Add(upgrade.bodyChanges);
@@ -79,6 +87,11 @@ public class PlayerStats : NetworkBehaviour
         {
             currentBulletStats.Add(upgrade.bulletChanges);
         }
+    }
+    [ClientRpc]
+    void RpcHideAllFrames()
+    {
+        MenuManager.Instance.HideAllFrames();
     }
 
 }

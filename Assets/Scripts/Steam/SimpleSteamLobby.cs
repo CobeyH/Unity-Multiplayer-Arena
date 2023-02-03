@@ -15,6 +15,8 @@ public class SimpleSteamLobby : MonoBehaviour
     private NetworkManager networkManager;
     private ulong lobbyID;
 
+    private bool solo_mode = false;
+
     const string HostAddressKey = "HostAddress";
 
     void Start()
@@ -35,6 +37,12 @@ public class SimpleSteamLobby : MonoBehaviour
             OnConnectionChange
         );
         startButton.enabled = true;
+    }
+
+    public void StartSolo()
+    {
+        solo_mode = true;
+        HostLobby();
     }
 
     public void HostLobby()
@@ -83,7 +91,6 @@ public class SimpleSteamLobby : MonoBehaviour
 
     void OnLobbysListed(LobbyMatchList_t callback)
     {
-        Debug.Log("Lobbies found: " + callback.m_nLobbiesMatching);
         // If there aren't any lobbies available to join, then become a host yourself;
         if (callback.m_nLobbiesMatching == 0)
         {
@@ -93,7 +100,6 @@ public class SimpleSteamLobby : MonoBehaviour
         {
             SteamMatchmaking.JoinLobby(SteamMatchmaking.GetLobbyByIndex(0));
         }
-        Debug.Log(callback);
     }
 
     void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t callback)
@@ -104,6 +110,10 @@ public class SimpleSteamLobby : MonoBehaviour
     void OnLobbyEntered(LobbyEnter_t callback)
     {
         lobbyID = callback.m_ulSteamIDLobby;
+        if (solo_mode)
+        {
+            MenuManager.Instance.OpenUpgradeFrame();
+        }
 
         // If you are the host
         if (NetworkServer.active)
