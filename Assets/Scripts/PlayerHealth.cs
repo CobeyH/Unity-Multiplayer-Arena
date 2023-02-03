@@ -107,6 +107,8 @@ public class PlayerHealth : NetworkBehaviour
     // Used by HealthBar
     public float GetHealthPercentage()
     {
+        if (!stats)
+            return 0;
         return Mathf.Max(0, currentHealth / (float)stats.currentBodyStats.maxHealth);
     }
 }
