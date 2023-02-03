@@ -52,6 +52,7 @@ public class GameState : NetworkBehaviour
             if (!upgraded)
             {
                 allPlayersUpgraded = false;
+                return;
             }
         }
         allPlayersUpgraded = true;
@@ -66,6 +67,7 @@ public class GameState : NetworkBehaviour
             if (!isUpgraded)
             {
                 CmdShowUpgrades(i);
+                return;
             }
             i++;
         }
