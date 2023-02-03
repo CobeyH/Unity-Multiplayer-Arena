@@ -75,8 +75,6 @@ public class PlayerHealth : NetworkBehaviour
     [ClientRpc]
     private void RpcRespawn(int connId)
     {
-        Debug.Log("net " + connId);
-
         StartCoroutine(RespawnPlayer(2, connId));
     }
 

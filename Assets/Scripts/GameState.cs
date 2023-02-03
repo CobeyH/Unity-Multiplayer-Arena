@@ -12,6 +12,8 @@ public class GameState : NetworkBehaviour
     public List<bool> initialUpgradeReceived = new List<bool>();
     public static GameState Instance;
 
+    public const int WINNING_SCORE = 5;
+
     [SerializeField]
     TMP_Text UIScoreText;
 
@@ -40,7 +42,7 @@ public class GameState : NetworkBehaviour
         CmdStartGame();
     }
 
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdAddPointTo(int connId)
     {
         for (int i = 0; i < playerConnections.Count; i++)
@@ -48,6 +50,10 @@ public class GameState : NetworkBehaviour
             if (connId != playerConnections[i].connectionId)
             {
                 playerScores[i] += 1;
+                if (playerScores[i] > WINNING_SCORE)
+                {
+                    RpcOpenWinningFrame();
+                }
             }
         }
 
@@ -58,6 +64,12 @@ public class GameState : NetworkBehaviour
         }
         text += playerScores[playerScores.Count - 1];
         RpcUpdateScoreText(text);
+    }
+
+    [ClientRpc]
+    void RpcOpenWinningFrame()
+    {
+        MenuManager.Instance.OpenWinningFrame();
     }
 
     [ClientRpc]
