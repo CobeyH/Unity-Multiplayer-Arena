@@ -79,8 +79,11 @@ public class PlayerHealth : NetworkBehaviour
     {
         ChangePlayerVisibilityTo(false);
         yield return new WaitForSeconds(t);
-        GameState.Instance.CmdShowUpgrades(connId);
-        CmdSpawn();
+        if (isServer)
+        {
+            GameState.Instance.CmdShowUpgrades(connId);
+            CmdSpawn();
+        }
         ChangePlayerVisibilityTo(true);
     }
 

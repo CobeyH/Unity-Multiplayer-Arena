@@ -49,7 +49,6 @@ public class CardSpawner : NetworkBehaviour
             allUpgrades[t] = allUpgrades[r];
             allUpgrades[r] = tmp;
         }
-        Debug.Log("Server shuffling");
     }
 
     [TargetRpc]
@@ -60,5 +59,6 @@ public class CardSpawner : NetworkBehaviour
             allCards[i].GetComponent<UpgradeCard>().SetCard(upgrades[i]);
             allCards[i].GetComponent<Button>().interactable = shouldShow;
         }
+        MenuManager.Instance.OpenUpgradeFrame();
     }
 }
