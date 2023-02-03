@@ -79,6 +79,7 @@ public class PlayerStats : NetworkBehaviour
         {
             currentBulletStats.Add(upgrade.bulletChanges);
         }
+        MenuManager.Instance.HideAllFrames();
     }
 
 }

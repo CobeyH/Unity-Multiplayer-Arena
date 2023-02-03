@@ -44,6 +44,13 @@ public class MenuManager : MonoBehaviour
         upgradeFrame.SetActive(true);
     }
 
+    public void HideAllFrames()
+    {
+        menuFrame.SetActive(false);
+        waitingFrame.SetActive(false);
+        upgradeFrame.SetActive(false);
+    }
+
     public GameObject FindObject(GameObject parent, string name)
     {
         Transform[] trs = parent.GetComponentsInChildren<Transform>(true);
