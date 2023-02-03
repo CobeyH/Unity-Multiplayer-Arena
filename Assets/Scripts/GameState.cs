@@ -10,6 +10,9 @@ public class GameState : NetworkBehaviour
     public List<bool> initialUpgradeReceived = new List<bool>();
     public static GameState Instance;
 
+    [SyncVar]
+    public bool allPlayersUpgraded;
+
     [SerializeField]
     CardSpawner cardSpawner;
 
@@ -38,19 +41,24 @@ public class GameState : NetworkBehaviour
         {
             initialUpgradeReceived.Add(false);
         }
-        UpgradeNextPlayer();
+        CmdUpgradeNextPlayer();
     }
 
-    public bool AreAllPlayersUpgraded()
+    [Command(requiresAuthority = false)]
+    public void CmdAreAllPlayersUpgraded()
     {
         foreach (bool upgraded in initialUpgradeReceived)
         {
-            if (!upgraded) return false;
+            if (!upgraded)
+            {
+                allPlayersUpgraded = false;
+            }
         }
-        return true;
+        allPlayersUpgraded = true;
     }
 
-    public void UpgradeNextPlayer()
+    [Command(requiresAuthority = false)]
+    public void CmdUpgradeNextPlayer()
     {
         int i = 0;
         foreach (bool isUpgraded in initialUpgradeReceived)
@@ -73,5 +81,6 @@ public class GameState : NetworkBehaviour
             cardSpawner.TargetDisplayCards(playerConnections[i], cardSpawner.allUpgrades.Take<UpgradeSO>(5).ToArray(), isActivePlayer);
         }
         initialUpgradeReceived[playerToUpgrade] = true;
+        CmdAreAllPlayersUpgraded();
     }
 }

@@ -57,6 +57,14 @@ public class PlayerStats : NetworkBehaviour
     {
         RpcApplyUpgrade(upgrade);
         upgrades.Add(upgrade);
+        if (!GameState.Instance.allPlayersUpgraded)
+        {
+            GameState.Instance.CmdUpgradeNextPlayer();
+        }
+        else
+        {
+            RpcHideAllFrames();
+        }
     }
 
     [ClientRpc]
@@ -79,14 +87,11 @@ public class PlayerStats : NetworkBehaviour
         {
             currentBulletStats.Add(upgrade.bulletChanges);
         }
-        if (!GameState.Instance.AreAllPlayersUpgraded())
-        {
-            GameState.Instance.UpgradeNextPlayer();
-        }
-        else
-        {
-            MenuManager.Instance.HideAllFrames();
-        }
+    }
+    [ClientRpc]
+    void RpcHideAllFrames()
+    {
+        MenuManager.Instance.HideAllFrames();
     }
 
 }
