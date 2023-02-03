@@ -14,14 +14,10 @@ public class PlayerHealth : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
-        CmdSpawn();
-    }
-
-    private void Start()
-    {
         stats = GetComponent<PlayerStats>();
         currentHealth = stats.currentBodyStats.maxHealth;
         respawns = GameObject.FindGameObjectsWithTag("Respawn");
+        CmdSpawn();
     }
 
     void Update()
