@@ -22,15 +22,6 @@ public class PlayerHealth : NetworkBehaviour
 
     void Update() { }
 
-    [ClientRpc]
-    public void RpcResizePlayer()
-    {
-        transform.localScale = new Vector2(
-            stats.currentBodyStats.size,
-            stats.currentBodyStats.size
-        );
-    }
-
     [TargetRpc]
     public void TargetSpawn()
     {
@@ -40,13 +31,16 @@ public class PlayerHealth : NetworkBehaviour
     [Command]
     public void CmdSpawn(NetworkConnectionToClient conn = null)
     {
-        RpcResizePlayer();
         RpcSpawn(conn.connectionId);
     }
 
     [ClientRpc]
     public void RpcSpawn(int id)
     {
+        transform.localScale = new Vector2(
+            stats.currentBodyStats.size,
+            stats.currentBodyStats.size
+        );
         currentHealth = stats.currentBodyStats.maxHealth;
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         gameObject.transform.position = respawns[id % 2].transform.position;
