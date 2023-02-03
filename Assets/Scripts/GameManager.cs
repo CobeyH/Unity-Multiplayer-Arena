@@ -156,7 +156,7 @@ public class GameManager : NetworkManager
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         base.OnServerAddPlayer(conn);
-        Debug.Log(numPlayers);
+        GameState.Instance.playerConnections.Add(conn);
         if (numPlayers > 1)
         {
             GameState.Instance.StartGame();

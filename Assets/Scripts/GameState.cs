@@ -5,10 +5,7 @@ using Mirror;
 
 public class GameState : NetworkBehaviour
 {
-    [SyncVar]
-    bool player1Selected = false;
-    [SyncVar]
-    bool player2Selected = false;
+    public List<NetworkConnectionToClient> playerConnections = new List<NetworkConnectionToClient>();
     public static GameState Instance;
 
     [SerializeField]
@@ -25,21 +22,6 @@ public class GameState : NetworkBehaviour
         cardSpawner = GameObject.FindObjectOfType<CardSpawner>();
     }
 
-    [Command]
-    public void UpgradeSelected()
-    {
-        if (!player1Selected)
-        {
-            player1Selected = true;
-            return;
-        }
-        else if (!player2Selected)
-        {
-            player2Selected = true;
-            return;
-        }
-    }
-
     public void StartGame()
     {
         CmdStartGame();
@@ -48,6 +30,6 @@ public class GameState : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void CmdStartGame()
     {
-        cardSpawner.CmdFindUpgradeOptions(netId);
+        cardSpawner.CmdFindUpgradeOptions(playerConnections[0].connectionId);
     }
 }

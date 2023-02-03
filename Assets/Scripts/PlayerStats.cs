@@ -56,7 +56,6 @@ public class PlayerStats : NetworkBehaviour
     public void CmdApplyUpgrade(UpgradeSO upgrade)
     {
         RpcApplyUpgrade(upgrade);
-        GameState.Instance.UpgradeSelected();
         upgrades.Add(upgrade);
     }
 
