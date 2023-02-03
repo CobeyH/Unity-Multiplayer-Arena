@@ -39,7 +39,7 @@ public class CardSpawner : NetworkBehaviour
     // }
 
     [Command(requiresAuthority = false)]
-    public void CmdFindUpgradeOptions()
+    public void CmdShuffleUpgrades()
     {
         // Knuth shuffle algorithm :: courtesy of Wikipedia :)
         for (int t = 0; t < allUpgrades.Length; t++)

@@ -62,7 +62,7 @@ public class PlayerStats : NetworkBehaviour
     [ClientRpc]
     private void RpcApplyUpgrade(UpgradeSO upgrade)
     {
-        Debug.Log("Received upgrade!:" + upgrade.title);
+        Debug.Log("Received Upgrade: " + upgrade.title);
         if (upgrade.bodyChanges)
         {
             currentBodyStats.Add(upgrade.bodyChanges);
@@ -79,7 +79,14 @@ public class PlayerStats : NetworkBehaviour
         {
             currentBulletStats.Add(upgrade.bulletChanges);
         }
-        MenuManager.Instance.HideAllFrames();
+        if (!GameState.Instance.AreAllPlayersUpgraded())
+        {
+            GameState.Instance.UpgradeNextPlayer();
+        }
+        else
+        {
+            MenuManager.Instance.HideAllFrames();
+        }
     }
 
 }

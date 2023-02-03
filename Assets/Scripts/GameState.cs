@@ -7,6 +7,7 @@ using System.Linq;
 public class GameState : NetworkBehaviour
 {
     public List<NetworkConnectionToClient> playerConnections = new List<NetworkConnectionToClient>();
+    public List<bool> initialUpgradeReceived = new List<bool>();
     public static GameState Instance;
 
     [SerializeField]
@@ -32,17 +33,45 @@ public class GameState : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void CmdStartGame()
     {
-        cardSpawner.CmdFindUpgradeOptions();
-        CmdShowUpgrades(0);
+        // Propagate list of players that need to receive upgrades at start of game.
+        foreach (NetworkConnectionToClient conn in playerConnections)
+        {
+            initialUpgradeReceived.Add(false);
+        }
+        UpgradeNextPlayer();
+    }
+
+    public bool AreAllPlayersUpgraded()
+    {
+        foreach (bool upgraded in initialUpgradeReceived)
+        {
+            if (!upgraded) return false;
+        }
+        return true;
+    }
+
+    public void UpgradeNextPlayer()
+    {
+        int i = 0;
+        foreach (bool isUpgraded in initialUpgradeReceived)
+        {
+            if (!isUpgraded)
+            {
+                CmdShowUpgrades(i);
+            }
+            i++;
+        }
     }
 
     [Command(requiresAuthority = false)]
     void CmdShowUpgrades(int playerToUpgrade)
     {
+        cardSpawner.CmdShuffleUpgrades();
         for (int i = 0; i < playerConnections.Count; i++)
         {
             bool isActivePlayer = playerToUpgrade == i;
             cardSpawner.TargetDisplayCards(playerConnections[i], cardSpawner.allUpgrades.Take<UpgradeSO>(5).ToArray(), isActivePlayer);
         }
+        initialUpgradeReceived[playerToUpgrade] = true;
     }
 }
