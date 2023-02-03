@@ -65,6 +65,12 @@ public class PlayerStats : NetworkBehaviour
         {
             RpcHideAllFrames();
         }
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach(var p in players)
+        {
+            p.GetComponent<PlayerHealth>().TargetSpawn();
+        }
+
     }
 
     [ClientRpc]

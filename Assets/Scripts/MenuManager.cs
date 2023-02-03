@@ -8,9 +8,9 @@ public class MenuManager : MonoBehaviour
     public GameObject menuFrame;
     public GameObject waitingFrame;
     public GameObject upgradeFrame;
+    public GameObject winningFrame;
 
     public static MenuManager Instance;
-
 
     public void Awake()
     {
@@ -19,6 +19,7 @@ public class MenuManager : MonoBehaviour
         menuFrame = FindObject(canvas, "MenuFrame");
         waitingFrame = FindObject(canvas, "WaitingFrame");
         upgradeFrame = FindObject(canvas, "UpgradeFrame");
+        winningFrame = FindObject(canvas, "WinningFrame");
 
         // Setup Singleton
         if (Instance != null && Instance != this)
@@ -27,7 +28,6 @@ public class MenuManager : MonoBehaviour
             return;
         }
         Instance = this;
-
     }
 
     public void OpenWaitingFrame()
@@ -35,6 +35,11 @@ public class MenuManager : MonoBehaviour
         menuFrame.SetActive(false);
         upgradeFrame.SetActive(false);
         waitingFrame.SetActive(true);
+    }
+
+    public void OpenWinningFrame()
+    {
+        winningFrame.SetActive(true);
     }
 
     public void OpenUpgradeFrame()

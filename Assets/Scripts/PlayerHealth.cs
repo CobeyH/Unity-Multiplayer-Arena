@@ -17,33 +17,37 @@ public class PlayerHealth : NetworkBehaviour
         CmdSpawn();
     }
 
-    private void Start()
+    public void Start()
     {
+        respawns = GameObject.FindGameObjectsWithTag("Respawn");
         stats = GetComponent<PlayerStats>();
         currentHealth = stats.currentBodyStats.maxHealth;
-        respawns = GameObject.FindGameObjectsWithTag("Respawn");
     }
 
-    void Update()
+    void Update() { }
+
+    [TargetRpc]
+    public void TargetSpawn()
     {
-        // To do optimize, player size
-        transform.localScale = new Vector2(
-            stats.currentBodyStats.size,
-            stats.currentBodyStats.size
-        );
+        CmdSpawn();
     }
 
     [Command]
-    private void CmdSpawn()
+    public void CmdSpawn(NetworkConnectionToClient conn = null)
     {
-        RpcSpawn(netId);
+        RpcSpawn(conn.connectionId);
     }
 
     [ClientRpc]
-    private void RpcSpawn(uint id)
+    public void RpcSpawn(int id)
     {
+        // transform.localScale = new Vector2(
+        //     stats.currentBodyStats.size,
+        //     stats.currentBodyStats.size
+        // );
+        currentHealth = stats.currentBodyStats.maxHealth;
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-        gameObject.transform.position = respawns[(id - 1) % 2].transform.position;
+        gameObject.transform.position = respawns[id % 2].transform.position;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -62,16 +66,15 @@ public class PlayerHealth : NetworkBehaviour
         currentHealth -= damageAmount;
         if (currentHealth <= 0)
         {
-            currentHealth = stats.currentBodyStats.maxHealth;
+            GameState.Instance.CmdAddPointTo(identity.connectionToClient.connectionId);
             RpcRespawn(identity.connectionToClient.connectionId);
+            currentHealth = stats.currentBodyStats.maxHealth;
         }
     }
 
     [ClientRpc]
     private void RpcRespawn(int connId)
     {
-        Debug.Log("net " + connId);
-
         StartCoroutine(RespawnPlayer(2, connId));
     }
 
@@ -100,6 +103,11 @@ public class PlayerHealth : NetworkBehaviour
     // Used by HealthBar
     public float GetHealthPercentage()
     {
+        if (!stats)
+            return 0;
+            
+        Debug.Log("max health: " + stats.currentBodyStats.maxHealth);
+
         return Mathf.Max(0, currentHealth / (float)stats.currentBodyStats.maxHealth);
     }
 }

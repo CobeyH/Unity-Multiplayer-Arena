@@ -8,7 +8,7 @@ public class BodyStatsSO : ScriptableObject
 
     public void Add(BodyStatsSO addition)
     {
-        maxHealth += addition.maxHealth;
-        size += addition.size;
+        maxHealth = Mathf.Max(1, maxHealth + addition.maxHealth);
+        size = Mathf.Max(0.1f, size + addition.size);
     }
 }
