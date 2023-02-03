@@ -115,7 +115,8 @@ public class GameManager : NetworkManager
         string newSceneName,
         SceneOperation sceneOperation,
         bool customHandling
-    ) { }
+    )
+    { }
 
     /// <summary>
     /// Called on clients when a scene has completed loaded, when the scene load was initiated by the server.
@@ -155,8 +156,13 @@ public class GameManager : NetworkManager
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         base.OnServerAddPlayer(conn);
+        Debug.Log(numPlayers);
+        if (numPlayers > 1)
+        {
+            GameState.Instance.StartGame();
+        }
     }
-    
+
     /// <summary>
     /// Called on the server when a client disconnects.
     /// <para>This is called on the Server when a Client disconnects from the Server. Use an override to decide what should happen when a disconnection is detected.</para>
@@ -177,7 +183,8 @@ public class GameManager : NetworkManager
         NetworkConnectionToClient conn,
         TransportError transportError,
         string message
-    ) { }
+    )
+    { }
 
     #endregion
 
