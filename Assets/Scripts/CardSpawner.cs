@@ -16,7 +16,7 @@ public class CardSpawner : NetworkBehaviour
     [SerializeField]
     GameObject cardContainer;
 
-    UpgradeSO[] allUpgrades;
+    public UpgradeSO[] allUpgrades;
 
     List<GameObject> allCards;
 
@@ -52,14 +52,14 @@ public class CardSpawner : NetworkBehaviour
         Debug.Log("Server shuffling");
     }
 
-    [Command]
-    public void CmdSendCardsToClient(NetworkConnectionToClient conn, bool shouldShow)
-    {
-        TargetDisplayCards(conn, allUpgrades.Take<UpgradeSO>(5).ToArray(), shouldShow);
-    }
+    // [Command(requiresAuthority = false)]
+    // public void CmdSendCardsToClient(NetworkConnectionToClient conn, bool shouldShow)
+    // {
+    //     TargetDisplayCards(conn, allUpgrades.Take<UpgradeSO>(5).ToArray(), shouldShow);
+    // }
 
     [TargetRpc]
-    void TargetDisplayCards(NetworkConnection conn, UpgradeSO[] upgrades, bool shouldShow)
+    public void TargetDisplayCards(NetworkConnection conn, UpgradeSO[] upgrades, bool shouldShow)
     {
         for (int i = 0; i < numCards; i++)
         {

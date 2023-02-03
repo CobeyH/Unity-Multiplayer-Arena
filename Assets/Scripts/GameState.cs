@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using System.Linq;
 
 public class GameState : NetworkBehaviour
 {
@@ -22,6 +23,7 @@ public class GameState : NetworkBehaviour
         cardSpawner = GameObject.FindObjectOfType<CardSpawner>();
     }
 
+    [Server]
     public void StartGame()
     {
         CmdStartGame();
@@ -31,6 +33,8 @@ public class GameState : NetworkBehaviour
     public void CmdStartGame()
     {
         cardSpawner.CmdFindUpgradeOptions();
-        cardSpawner.CmdSendCardsToClient(playerConnections[0], true);
+
+        // cardSpawner.CmdSendCardsToClient(playerConnections[0], true);
+        cardSpawner.TargetDisplayCards(playerConnections[0], cardSpawner.allUpgrades.Take<UpgradeSO>(5).ToArray(), true);
     }
 }
