@@ -34,13 +34,13 @@ public class PlayerHealth : NetworkBehaviour
     }
 
     [Command]
-    private void CmdSpawn()
+    public void CmdSpawn(NetworkConnectionToClient conn = null)
     {
-        RpcSpawn(netId);
+        RpcSpawn(conn.connectionId);
     }
 
     [ClientRpc]
-    private void RpcSpawn(uint id)
+    private void RpcSpawn(int id)
     {
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         gameObject.transform.position = respawns[(id - 1) % 2].transform.position;
