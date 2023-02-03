@@ -20,9 +20,11 @@ public class PlayerHealth : NetworkBehaviour
         CmdSpawn();
     }
 
-    void Update()
+    void Update() { }
+
+    [ClientRpc]
+    public void RpcResizePlayer()
     {
-        // To do optimize, player size
         transform.localScale = new Vector2(
             stats.currentBodyStats.size,
             stats.currentBodyStats.size
@@ -38,6 +40,7 @@ public class PlayerHealth : NetworkBehaviour
     [Command]
     public void CmdSpawn(NetworkConnectionToClient conn = null)
     {
+        RpcResizePlayer();
         RpcSpawn(conn.connectionId);
         currentHealth = stats.currentBodyStats.maxHealth;
     }
