@@ -42,14 +42,13 @@ public class PlayerHealth : NetworkBehaviour
     {
         RpcResizePlayer();
         RpcSpawn(conn.connectionId);
-        currentHealth = stats.currentBodyStats.maxHealth;
     }
 
     [ClientRpc]
     public void RpcSpawn(int id)
     {
+        currentHealth = stats.currentBodyStats.maxHealth;
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-        Debug.Log("respawns len: " + respawns.Length + " connID: " + id);
         gameObject.transform.position = respawns[id % 2].transform.position;
     }
 
