@@ -33,6 +33,12 @@ public class PlayerHealth : NetworkBehaviour
         );
     }
 
+    [TargetRpc]
+    public void TargetSpawn()
+    {
+        CmdSpawn();
+    }
+
     [Command]
     public void CmdSpawn(NetworkConnectionToClient conn = null)
     {
@@ -40,7 +46,7 @@ public class PlayerHealth : NetworkBehaviour
     }
 
     [ClientRpc]
-    private void RpcSpawn(int id)
+    public void RpcSpawn(int id)
     {
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         Debug.Log("respawns len: " + respawns.Length + " connID: " + id);

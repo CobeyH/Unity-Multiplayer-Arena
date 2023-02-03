@@ -68,7 +68,7 @@ public class PlayerStats : NetworkBehaviour
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach(var p in players)
         {
-            p.GetComponent<PlayerHealth>().CmdSpawn();
+            p.GetComponent<PlayerHealth>().TargetSpawn();
         }
 
     }
