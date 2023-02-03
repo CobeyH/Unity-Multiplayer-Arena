@@ -14,12 +14,12 @@ public class PlayerHealth : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
-        respawns = GameObject.FindGameObjectsWithTag("Respawn");
         CmdSpawn();
     }
 
     public void Start()
     {
+        respawns = GameObject.FindGameObjectsWithTag("Respawn");
         stats = GetComponent<PlayerStats>();
         currentHealth = stats.currentBodyStats.maxHealth;
     }
@@ -41,10 +41,10 @@ public class PlayerHealth : NetworkBehaviour
     [ClientRpc]
     public void RpcSpawn(int id)
     {
-        transform.localScale = new Vector2(
-            stats.currentBodyStats.size,
-            stats.currentBodyStats.size
-        );
+        // transform.localScale = new Vector2(
+        //     stats.currentBodyStats.size,
+        //     stats.currentBodyStats.size
+        // );
         currentHealth = stats.currentBodyStats.maxHealth;
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         gameObject.transform.position = respawns[id % 2].transform.position;
