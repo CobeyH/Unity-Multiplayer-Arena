@@ -14,8 +14,7 @@ public class GameState : NetworkBehaviour
     [SerializeField]
     CardSpawner cardSpawner;
 
-    [Server]
-    void Awake()
+    public override void OnStartServer()
     {
         if (Instance != null && Instance != this)
         {
