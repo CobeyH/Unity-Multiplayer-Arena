@@ -74,7 +74,7 @@ public class GameState : NetworkBehaviour
     }
 
     [Command(requiresAuthority = false)]
-    void CmdShowUpgrades(int playerToUpgrade)
+    public void CmdShowUpgrades(int playerToUpgrade)
     {
         cardSpawner.CmdShuffleUpgrades();
         for (int i = 0; i < playerConnections.Count; i++)

@@ -60,36 +60,34 @@ public class PlayerHealth : NetworkBehaviour
         currentHealth -= damageAmount;
         if (currentHealth <= 0)
         {
-            RpcRespawn();
             currentHealth = stats.currentBodyStats.maxHealth;
+            RpcRespawn(netId);
         }
     }
 
     [ClientRpc]
-    private void RpcRespawn()
+    private void RpcRespawn(uint netId)
     {
-        StartCoroutine(RespawnPlayer(2));
+        StartCoroutine(RespawnPlayer(2, netId));
     }
 
-    private IEnumerator RespawnPlayer(float t)
+    private IEnumerator RespawnPlayer(float t, uint netId)
     {
-        HidePlayer();
+        ChangePlayerVisibilityTo(false);
         yield return new WaitForSeconds(t);
+        GameState.Instance.CmdShowUpgrades((int)netId);
         CmdSpawn();
+        ChangePlayerVisibilityTo(true);
     }
 
-    private void HidePlayer()
+    private void ChangePlayerVisibilityTo(bool shouldShow)
     {
         // Hide all sprite renderers within a game object
-        // SpriteRenderer[] All = GetComponentsInChildren<SpriteRenderer>();
-        // foreach (var sr in All)
-        // {
-        //     sr.enabled = false;
-        // }
-
-        // Simpler method to achieve the same thing lol
-        // TODO: FIX THIS
-        gameObject.transform.position = new Vector2(99, 99);
+        SpriteRenderer[] All = GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer sr in All)
+        {
+            sr.enabled = shouldShow;
+        }
     }
 
     // Used by HealthBar
