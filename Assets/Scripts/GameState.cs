@@ -30,6 +30,7 @@ public class GameState : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void CmdStartGame()
     {
-        cardSpawner.CmdFindUpgradeOptions(playerConnections[0].connectionId);
+        cardSpawner.CmdFindUpgradeOptions();
+        cardSpawner.CmdSendCardsToClient(playerConnections[0], true);
     }
 }

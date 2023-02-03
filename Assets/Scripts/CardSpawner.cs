@@ -39,7 +39,7 @@ public class CardSpawner : NetworkBehaviour
     // }
 
     [Command(requiresAuthority = false)]
-    public void CmdFindUpgradeOptions(int connectionId)
+    public void CmdFindUpgradeOptions()
     {
         // Knuth shuffle algorithm :: courtesy of Wikipedia :)
         for (int t = 0; t < allUpgrades.Length; t++)
@@ -50,19 +50,21 @@ public class CardSpawner : NetworkBehaviour
             allUpgrades[r] = tmp;
         }
         Debug.Log("Server shuffling");
-        //TODO: fixed hard coded "true"
-        RpcDisplayCards(connectionId, allUpgrades.Take<UpgradeSO>(5).ToArray());
     }
 
-    [ClientRpc]
-    void RpcDisplayCards(int connectionId, UpgradeSO[] upgrades)
+    [Command]
+    public void CmdSendCardsToClient(NetworkConnectionToClient conn, bool shouldShow)
     {
-        Debug.Log(NetworkClient.connection.connectionId + " " + connectionId + " " + connectionToServer.connectionId + " " + netId);
+        TargetDisplayCards(conn, allUpgrades.Take<UpgradeSO>(5).ToArray(), shouldShow);
+    }
 
+    [TargetRpc]
+    void TargetDisplayCards(NetworkConnection conn, UpgradeSO[] upgrades, bool shouldShow)
+    {
         for (int i = 0; i < numCards; i++)
         {
             allCards[i].GetComponent<UpgradeCard>().SetCard(upgrades[i]);
-            allCards[i].GetComponent<Button>().interactable = connectionId == NetworkClient.connection.connectionId;
+            allCards[i].GetComponent<Button>().interactable = shouldShow;
         }
     }
 }
