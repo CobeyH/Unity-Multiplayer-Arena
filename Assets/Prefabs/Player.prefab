@@ -201,6 +201,7 @@ GameObject:
   - component: {fileID: 6384999701210476256}
   - component: {fileID: 1696616147879605587}
   - component: {fileID: 2014046681810129192}
+  - component: {fileID: 4737786171482785503}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -306,7 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff3ba0becae47b8b9381191598957c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
+  syncDirection: 1
   syncMode: 0
   syncInterval: 0
   target: {fileID: 4491865456893457868}
@@ -372,6 +373,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56c19e6326f802e8290b93d8fc2648ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
   accelerationCurve:
     serializedVersion: 2
     m_Curve:
@@ -481,6 +485,29 @@ MonoBehaviour:
   currentBulletStats: {fileID: 0}
   baseBulletStats: {fileID: 11400000, guid: b6b410d28019ba5ed86161d18345ad5b, type: 2}
   testing: {fileID: 11400000, guid: bd4081c9e50898a46b268526fbd4357c, type: 2}
+--- !u!114 &4737786171482785503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6996597304130034024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab2cbc52526ea384ba280d13cd1a57b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0.1
+  target: {fileID: 1421742895220259195}
+  clientAuthority: 1
+  syncVelocity: 1
+  clearVelocity: 0
+  velocitySensitivity: 0.1
+  syncAngularVelocity: 1
+  clearAngularVelocity: 0
+  angularVelocitySensitivity: 0.1
 --- !u!1 &7794818139001915241
 GameObject:
   m_ObjectHideFlags: 0

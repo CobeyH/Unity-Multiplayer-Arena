@@ -21,9 +21,8 @@ public class PlayerMovement : NetworkBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
-        if (isLocalPlayer) Destroy(this);
         rigidBody = gameObject.GetComponent<Rigidbody2D>();
         StartCoroutine(ResetBlinks(0));
         mainCam = Camera.main;
@@ -34,6 +33,10 @@ public class PlayerMovement : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!isOwned)
+        {
+            return;
+        }
         // Handle blink input
         HandleBlinkInput();
         HandleSteerInput();
@@ -114,6 +117,10 @@ public class PlayerMovement : NetworkBehaviour
 
     void FixedUpdate()
     {
+        if (!isOwned)
+        {
+            return;
+        }
         if (error.magnitude > 0)
         {
             Vector2 moveDir = new Vector2(accelerationCurve.Evaluate(error.x), accelerationCurve.Evaluate(error.y));
