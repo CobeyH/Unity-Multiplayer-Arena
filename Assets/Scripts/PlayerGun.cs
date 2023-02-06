@@ -37,7 +37,8 @@ public class PlayerGun : NetworkBehaviour
 
     void SetDirection(Vector2 oldDir, Vector2 newDir)
     {
-        gun.transform.right = direction;
+        
+        gun.transform.right = Vector2.Lerp(gun.transform.right, direction, Time.deltaTime * 15);
     }
 
     // Update is called once per frame
