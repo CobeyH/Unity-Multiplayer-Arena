@@ -3138,8 +3138,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7204d2543ea1259b494f0a67294765a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundEffects: []
-  musicTracks: []
+  soundEffects:
+  - name: Weapon
+    clip: {fileID: 8300000, guid: cd8a96c2c41609c449e9de67a9f84710, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  musicTracks:
+  - name: Through the Universe
+    clip: {fileID: 8300000, guid: 15ed561f11f4460e3b070e32bd5b006c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
   sFXMixer: {fileID: -2483942421972022613, guid: fa02ff5f0d8f845eb9807c5aae886bbc, type: 2}
   musicMixer: {fileID: -7535246784009236591, guid: fa02ff5f0d8f845eb9807c5aae886bbc, type: 2}
 --- !u!4 &2062972293

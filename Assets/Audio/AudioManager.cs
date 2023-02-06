@@ -48,6 +48,8 @@ public class AudioManager : MonoBehaviour
     {
         Sound currentSong = musicTracks[UnityEngine.Random.Range(0, musicTracks.Length - 1)];
         currentSong.source.Play();
+        Debug.Log("Playing song: " + currentSong.name);
+
         Invoke(nameof(PlayMusic), currentSong.clip.length);
     }
 
@@ -115,7 +117,7 @@ public class AudioManager : MonoBehaviour
         PlayerPrefs.SetFloat("Volume", newVolume);
         // Scale the volume so that it isn't on a logarithmic scale
         newVolume = Mathf.Log(newVolume) * 20;
-        musicMixer.audioMixer.SetFloat("Volume", newVolume);
+        musicMixer.audioMixer.SetFloat("MusicVolume", newVolume);
     }
 
 }

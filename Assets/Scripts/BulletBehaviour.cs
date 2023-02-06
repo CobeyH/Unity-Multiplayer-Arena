@@ -11,6 +11,7 @@ public class BulletBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        AudioManager.instance.Play("Weapon");
         rb = GetComponent<Rigidbody2D>();
         SetSize();
         float spreadAmount = Random.Range(-bulletStats.spread, bulletStats.spread);
