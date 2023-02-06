@@ -48,8 +48,6 @@ public class AudioManager : MonoBehaviour
     {
         Sound currentSong = musicTracks[UnityEngine.Random.Range(0, musicTracks.Length - 1)];
         currentSong.source.Play();
-        Debug.Log("Playing song: " + currentSong.name);
-
         Invoke(nameof(PlayMusic), currentSong.clip.length);
     }
 
