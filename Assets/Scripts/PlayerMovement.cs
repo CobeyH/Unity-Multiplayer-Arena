@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
     [SerializeField]
     AnimationCurve accelerationCurve;
@@ -22,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (isLocalPlayer) Destroy(this);
         rigidBody = gameObject.GetComponent<Rigidbody2D>();
         StartCoroutine(ResetBlinks(0));
         mainCam = Camera.main;
