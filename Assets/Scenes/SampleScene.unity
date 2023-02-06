@@ -288,6 +288,7 @@ MonoBehaviour:
   menuFrame: {fileID: 0}
   waitingFrame: {fileID: 0}
   upgradeFrame: {fileID: 0}
+  winningFrame: {fileID: 0}
 --- !u!1 &223141050
 GameObject:
   m_ObjectHideFlags: 0
@@ -3108,6 +3109,66 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &2062972291
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2062972293}
+  - component: {fileID: 2062972292}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2062972292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2062972291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7204d2543ea1259b494f0a67294765a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEffects:
+  - name: Weapon
+    clip: {fileID: 8300000, guid: cd8a96c2c41609c449e9de67a9f84710, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  musicTracks:
+  - name: Through the Universe
+    clip: {fileID: 8300000, guid: 15ed561f11f4460e3b070e32bd5b006c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  sFXMixer: {fileID: -2483942421972022613, guid: fa02ff5f0d8f845eb9807c5aae886bbc, type: 2}
+  musicMixer: {fileID: -7535246784009236591, guid: fa02ff5f0d8f845eb9807c5aae886bbc, type: 2}
+--- !u!4 &2062972293
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2062972291}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.1936085, y: -0.8466226, z: 0.7678932}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2094991679
 GameObject:
   m_ObjectHideFlags: 0
