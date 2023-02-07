@@ -181,6 +181,7 @@ GameObject:
   - component: {fileID: 69017145}
   - component: {fileID: 69017147}
   - component: {fileID: 69017148}
+  - component: {fileID: 69017149}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -289,6 +290,34 @@ MonoBehaviour:
   waitingFrame: {fileID: 0}
   upgradeFrame: {fileID: 0}
   winningFrame: {fileID: 0}
+--- !u!114 &69017149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 69017141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d7da4e566d24ea7b0e12178d934b648, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clientIntervalReceivedPackets: 0
+  clientIntervalReceivedBytes: 0
+  clientIntervalSentPackets: 0
+  clientIntervalSentBytes: 0
+  clientReceivedPacketsPerSecond: 0
+  clientReceivedBytesPerSecond: 0
+  clientSentPacketsPerSecond: 0
+  clientSentBytesPerSecond: 0
+  serverIntervalReceivedPackets: 0
+  serverIntervalReceivedBytes: 0
+  serverIntervalSentPackets: 0
+  serverIntervalSentBytes: 0
+  serverReceivedPacketsPerSecond: 0
+  serverReceivedBytesPerSecond: 0
+  serverSentPacketsPerSecond: 0
+  serverSentBytesPerSecond: 0
 --- !u!1 &223141050
 GameObject:
   m_ObjectHideFlags: 0
