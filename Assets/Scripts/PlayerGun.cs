@@ -43,7 +43,6 @@ public class PlayerGun : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(NetworkTime.rtt);
 
         gunSprite.color = isReloading() ? Color.yellow : Color.green;
         if (!isLocalPlayer)
@@ -87,22 +86,22 @@ public class PlayerGun : NetworkBehaviour
     [Command]
     void CmdFireWeapon()
     {
+        GameObject bulletInstance = Instantiate(
+            bullet,
+            bulletSpawnPoint.position,
+            gun.transform.rotation
+        );
+        bulletInstance.GetComponent<BulletBehaviour>().bulletStats = stats.currentBulletStats;
+        Vector2 shipVelocity = gameObject.GetComponent<Rigidbody2D>().velocity;
+        bulletInstance.GetComponent<Rigidbody2D>().velocity = shipVelocity;
+        NetworkServer.Spawn(bulletInstance);
     }
-
 
     private IEnumerator FireBullets()
     {
         for (int i = 0; i < stats.currentWeaponStats.bulletCount; i++)
         {
-            GameObject bulletInstance = Instantiate(
-                bullet,
-                bulletSpawnPoint.position,
-                gun.transform.rotation
-            );
-            bulletInstance.GetComponent<BulletBehaviour>().bulletStats = stats.currentBulletStats;
-            Vector2 shipVelocity = gameObject.GetComponent<Rigidbody2D>().velocity;
-            bulletInstance.GetComponent<Rigidbody2D>().velocity = shipVelocity;
-            NetworkServer.Spawn(bulletInstance);
+            CmdFireWeapon();
             yield return new WaitForSeconds(0.02f);
         }
     }
