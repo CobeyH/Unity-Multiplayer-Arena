@@ -105,8 +105,6 @@ public class PlayerHealth : NetworkBehaviour
     {
         if (!stats)
             return 0;
-            
-        Debug.Log("max health: " + stats.currentBodyStats.maxHealth);
 
         return Mathf.Max(0, currentHealth / (float)stats.currentBodyStats.maxHealth);
     }

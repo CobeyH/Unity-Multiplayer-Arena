@@ -77,7 +77,7 @@ public class PlayerGun : NetworkBehaviour
         {
             if (!isReloading())
             {
-                StartCoroutine(FireBullets());
+                CmdFireWeapon();
                 reloadTime = stats.currentWeaponStats.reloadSpeed;
             }
         }
@@ -86,22 +86,28 @@ public class PlayerGun : NetworkBehaviour
     [Command]
     void CmdFireWeapon()
     {
-        GameObject bulletInstance = Instantiate(
-            bullet,
-            bulletSpawnPoint.position,
-            gun.transform.rotation
-        );
-        bulletInstance.GetComponent<BulletBehaviour>().bulletStats = stats.currentBulletStats;
-        Vector2 shipVelocity = gameObject.GetComponent<Rigidbody2D>().velocity;
-        bulletInstance.GetComponent<Rigidbody2D>().velocity = shipVelocity;
-        NetworkServer.Spawn(bulletInstance);
+        RpcFireWeapon();
+    }
+
+    [ClientRpc]
+    void RpcFireWeapon()
+    {
+        StartCoroutine(FireBullets());
     }
 
     private IEnumerator FireBullets()
     {
         for (int i = 0; i < stats.currentWeaponStats.bulletCount; i++)
         {
-            CmdFireWeapon();
+            GameObject bulletInstance = Instantiate(
+                bullet,
+                bulletSpawnPoint.position,
+                gun.transform.rotation
+            );
+            bulletInstance.GetComponent<BulletBehaviour>().bulletStats = stats.currentBulletStats;
+            Vector2 shipVelocity = gameObject.GetComponent<Rigidbody2D>().velocity;
+            bulletInstance.GetComponent<Rigidbody2D>().velocity = shipVelocity;
+            NetworkServer.Spawn(bulletInstance);
             yield return new WaitForSeconds(0.02f);
         }
     }
