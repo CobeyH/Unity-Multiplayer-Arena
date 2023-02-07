@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Mirror;
 using System.Collections;
 
@@ -73,7 +74,8 @@ public class PlayerGun : NetworkBehaviour
 
     void HandleShooting()
     {
-        if (Input.GetMouseButtonDown(0))
+        bool isOverUI = EventSystem.current.IsPointerOverGameObject();
+        if (Input.GetMouseButtonDown(0) && !isOverUI)
         {
             if (!isReloading())
             {
