@@ -48,19 +48,20 @@ public class PlayerGun : NetworkBehaviour
         if (!isLocalPlayer)
             return;
 
-        HandleAimLook();
+        direction = (
+            (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition)
+            - (Vector2)gun.transform.position
+        ).normalized;
+        HandleAimLook(direction);
         HandleShooting();
         reloadTime -= Time.deltaTime;
 
     }
 
-    void HandleAimLook()
+    [Command]
+    void HandleAimLook(Vector2 newDirection)
     {
-        direction = (
-            (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition)
-            - (Vector2)gun.transform.position
-        ).normalized;
-        SetDirection(direction, direction);
+        direction = newDirection;
     }
 
     void HandleShooting()
