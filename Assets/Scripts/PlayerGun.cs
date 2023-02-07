@@ -37,7 +37,7 @@ public class PlayerGun : NetworkBehaviour
 
     void SetDirection(Vector2 oldDir, Vector2 newDir)
     {
-        gun.transform.right = Vector2.Lerp(oldDir, direction, 20);
+        gun.transform.right = newDir;
     }
 
     // Update is called once per frame
@@ -48,18 +48,25 @@ public class PlayerGun : NetworkBehaviour
         if (!isLocalPlayer)
             return;
 
-        direction = (
-            (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition)
-            - (Vector2)gun.transform.position
-        ).normalized;
-        HandleAimLook(direction);
+        UpdateLookDir();
         HandleShooting();
         reloadTime -= Time.deltaTime;
 
     }
 
+    void UpdateLookDir()
+    {
+        Vector2 oldDir = direction;
+        direction = (
+            (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition)
+            - (Vector2)gun.transform.position
+        ).normalized;
+        SetDirection(oldDir, direction);
+        CmdMatchLookDir(direction);
+    }
+
     [Command]
-    void HandleAimLook(Vector2 newDirection)
+    void CmdMatchLookDir(Vector2 newDirection)
     {
         direction = newDirection;
     }
